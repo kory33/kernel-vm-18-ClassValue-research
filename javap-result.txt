@@ -1,0 +1,622 @@
+Classfile /S:/programming/talks/kernelvm18/kernel-vm-18-ClassValue-research/xuwei-k-bench/target/scala-3.7.2/classes/cats/effect/benchmarks/TagBenchmark.class
+  Last modified 7 Aug 2025; size 3341 bytes
+  SHA-256 checksum d9832d71fac694c6c428d8f394f389a16f5f9412703a31635d8db0eb5d401be4
+  Compiled from "TagBenchmark.scala"
+public class cats.effect.benchmarks.TagBenchmark
+  minor version: 0
+  major version: 52
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // cats/effect/benchmarks/TagBenchmark
+  super_class: #4                         // java/lang/Object
+  interfaces: 0, fields: 0, methods: 5, attributes: 4
+Constant pool:
+    #1 = Utf8               cats/effect/benchmarks/TagBenchmark
+    #2 = Class              #1            // cats/effect/benchmarks/TagBenchmark
+    #3 = Utf8               java/lang/Object
+    #4 = Class              #3            // java/lang/Object
+    #5 = Utf8               TagBenchmark.scala
+    #6 = Utf8               Lorg/openjdk/jmh/annotations/OutputTimeUnit;
+    #7 = Utf8               value
+    #8 = Utf8               Ljava/util/concurrent/TimeUnit;
+    #9 = Utf8               SECONDS
+   #10 = Utf8               Lorg/openjdk/jmh/annotations/BenchmarkMode;
+   #11 = Utf8               Lorg/openjdk/jmh/annotations/Mode;
+   #12 = Utf8               Throughput
+   #13 = Utf8               Lorg/openjdk/jmh/annotations/State;
+   #14 = Utf8               Lorg/openjdk/jmh/annotations/Scope;
+   #15 = Utf8               Thread
+   #16 = Utf8               ioClassValue
+   #17 = Utf8               ()Ljava/lang/ClassValue;
+   #18 = Utf8               ()Ljava/lang/ClassValue<Ljava/lang/Object;>;
+   #19 = Utf8               cats/effect/benchmarks/TagBenchmark$
+   #20 = Class              #19           // cats/effect/benchmarks/TagBenchmark$
+   #21 = Utf8               MODULE$
+   #22 = Utf8               Lcats/effect/benchmarks/TagBenchmark$;
+   #23 = NameAndType        #21:#22       // MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+   #24 = Fieldref           #20.#23       // cats/effect/benchmarks/TagBenchmark$.MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+   #25 = NameAndType        #16:#17       // ioClassValue:()Ljava/lang/ClassValue;
+   #26 = Methodref          #20.#25       // cats/effect/benchmarks/TagBenchmark$.ioClassValue:()Ljava/lang/ClassValue;
+   #27 = Utf8               values
+   #28 = Utf8               ()[Lcats/effect/benchmarks/FakeIO;
+   #29 = Utf8               ()[Lcats/effect/benchmarks/FakeIO<*>;
+   #30 = NameAndType        #27:#28       // values:()[Lcats/effect/benchmarks/FakeIO;
+   #31 = Methodref          #20.#30       // cats/effect/benchmarks/TagBenchmark$.values:()[Lcats/effect/benchmarks/FakeIO;
+   #32 = Utf8               <init>
+   #33 = Utf8               ()V
+   #34 = NameAndType        #32:#33       // "<init>":()V
+   #35 = Methodref          #4.#34        // java/lang/Object."<init>":()V
+   #36 = Utf8               this
+   #37 = Utf8               Lcats/effect/benchmarks/TagBenchmark;
+   #38 = Utf8               tag
+   #39 = Utf8               (Lorg/openjdk/jmh/infra/Blackhole;)V
+   #40 = Utf8               bk
+   #41 = Utf8               Lorg/openjdk/jmh/annotations/Benchmark;
+   #42 = Utf8               cats/effect/benchmarks/FakeIO
+   #43 = Class              #42           // cats/effect/benchmarks/FakeIO
+   #44 = Utf8               ()B
+   #45 = NameAndType        #38:#44       // tag:()B
+   #46 = Methodref          #43.#45       // cats/effect/benchmarks/FakeIO.tag:()B
+   #47 = Utf8               Pure
+   #48 = String             #47           // Pure
+   #49 = Utf8               Error
+   #50 = String             #49           // Error
+   #51 = Utf8               Delay
+   #52 = String             #51           // Delay
+   #53 = Utf8               ReadTime
+   #54 = String             #53           // ReadTime
+   #55 = Utf8               Monotonic
+   #56 = String             #55           // Monotonic
+   #57 = Utf8               ReadEC
+   #58 = String             #57           // ReadEC
+   #59 = Utf8               Map
+   #60 = String             #59           // Map
+   #61 = Utf8               FlatMap
+   #62 = String             #61           // FlatMap
+   #63 = Utf8               Attempt
+   #64 = String             #63           // Attempt
+   #65 = Utf8               HandleErrorWith
+   #66 = String             #65           // HandleErrorWith
+   #67 = Utf8               Canceled
+   #68 = String             #67           // Canceled
+   #69 = Utf8               OnCancel
+   #70 = String             #69           // OnCancel
+   #71 = Utf8               Uncancelable
+   #72 = String             #71           // Uncancelable
+   #73 = Utf8               UnmaskRunLoop
+   #74 = String             #73           // UnmaskRunLoop
+   #75 = Utf8               IOCont
+   #76 = String             #75           // IOCont
+   #77 = Utf8               Get
+   #78 = String             #77           // Get
+   #79 = Utf8               Cede
+   #80 = String             #79           // Cede
+   #81 = Utf8               Start
+   #82 = String             #81           // Start
+   #83 = Utf8               RacePair
+   #84 = String             #83           // RacePair
+   #85 = Utf8               Sleep
+   #86 = String             #85           // Sleep
+   #87 = Utf8               EvalOn
+   #88 = String             #87           // EvalOn
+   #89 = Utf8               Blocking
+   #90 = String             #89           // Blocking
+   #91 = Utf8               Local
+   #92 = String             #91           // Local
+   #93 = Utf8               IOTrace
+   #94 = String             #93           // IOTrace
+   #95 = Utf8               ReadRT
+   #96 = String             #95           // ReadRT
+   #97 = Utf8               EndFiber
+   #98 = String             #97           // EndFiber
+   #99 = Utf8               scala/MatchError
+  #100 = Class              #99           // scala/MatchError
+  #101 = Utf8               scala/runtime/BoxesRunTime
+  #102 = Class              #101          // scala/runtime/BoxesRunTime
+  #103 = Utf8               boxToByte
+  #104 = Utf8               (B)Ljava/lang/Byte;
+  #105 = NameAndType        #103:#104     // boxToByte:(B)Ljava/lang/Byte;
+  #106 = Methodref          #102.#105     // scala/runtime/BoxesRunTime.boxToByte:(B)Ljava/lang/Byte;
+  #107 = Utf8               (Ljava/lang/Object;)V
+  #108 = NameAndType        #32:#107      // "<init>":(Ljava/lang/Object;)V
+  #109 = Methodref          #100.#108     // scala/MatchError."<init>":(Ljava/lang/Object;)V
+  #110 = Utf8               org/openjdk/jmh/infra/Blackhole
+  #111 = Class              #110          // org/openjdk/jmh/infra/Blackhole
+  #112 = Utf8               consume
+  #113 = NameAndType        #112:#107     // consume:(Ljava/lang/Object;)V
+  #114 = Methodref          #111.#113     // org/openjdk/jmh/infra/Blackhole.consume:(Ljava/lang/Object;)V
+  #115 = Utf8               result
+  #116 = Utf8               Ljava/lang/String;
+  #117 = Utf8               i
+  #118 = Utf8               I
+  #119 = Utf8               Lorg/openjdk/jmh/infra/Blackhole;
+  #120 = Utf8               java/lang/Throwable
+  #121 = Class              #120          // java/lang/Throwable
+  #122 = Utf8               java/lang/String
+  #123 = Class              #122          // java/lang/String
+  #124 = Utf8               classValue
+  #125 = Utf8               getClass
+  #126 = Utf8               ()Ljava/lang/Class;
+  #127 = NameAndType        #125:#126     // getClass:()Ljava/lang/Class;
+  #128 = Methodref          #43.#127      // cats/effect/benchmarks/FakeIO.getClass:()Ljava/lang/Class;
+  #129 = Utf8               java/lang/ClassValue
+  #130 = Class              #129          // java/lang/ClassValue
+  #131 = Utf8               get
+  #132 = Utf8               (Ljava/lang/Class;)Ljava/lang/Object;
+  #133 = NameAndType        #131:#132     // get:(Ljava/lang/Class;)Ljava/lang/Object;
+  #134 = Methodref          #130.#133     // java/lang/ClassValue.get:(Ljava/lang/Class;)Ljava/lang/Object;
+  #135 = Utf8               unboxToByte
+  #136 = Utf8               (Ljava/lang/Object;)B
+  #137 = NameAndType        #135:#136     // unboxToByte:(Ljava/lang/Object;)B
+  #138 = Methodref          #102.#137     // scala/runtime/BoxesRunTime.unboxToByte:(Ljava/lang/Object;)B
+  #139 = Utf8               Code
+  #140 = Utf8               Signature
+  #141 = Utf8               LineNumberTable
+  #142 = Utf8               LocalVariableTable
+  #143 = Utf8               StackMapTable
+  #144 = Utf8               RuntimeVisibleAnnotations
+  #145 = Utf8               MethodParameters
+  #146 = Utf8               SourceFile
+  #147 = Utf8               TASTY
+  #148 = Utf8               Scala
+{
+  public static java.lang.ClassValue<java.lang.Object> ioClassValue();
+    descriptor: ()Ljava/lang/ClassValue;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #24                 // Field cats/effect/benchmarks/TagBenchmark$.MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+         3: invokevirtual #26                 // Method cats/effect/benchmarks/TagBenchmark$.ioClassValue:()Ljava/lang/ClassValue;
+         6: areturn
+    Signature: #18                          // ()Ljava/lang/ClassValue<Ljava/lang/Object;>;
+
+  public static cats.effect.benchmarks.FakeIO<?>[] values();
+    descriptor: ()[Lcats/effect/benchmarks/FakeIO;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=1, locals=0, args_size=0
+         0: getstatic     #24                 // Field cats/effect/benchmarks/TagBenchmark$.MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+         3: invokevirtual #31                 // Method cats/effect/benchmarks/TagBenchmark$.values:()[Lcats/effect/benchmarks/FakeIO;
+         6: areturn
+    Signature: #29                          // ()[Lcats/effect/benchmarks/FakeIO<*>;
+
+  public cats.effect.benchmarks.TagBenchmark();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #35                 // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 178: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcats/effect/benchmarks/TagBenchmark;
+
+  public void tag(org.openjdk.jmh.infra.Blackhole);
+    descriptor: (Lorg/openjdk/jmh/infra/Blackhole;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=5, args_size=2
+         0: iconst_0
+         1: istore_2
+         2: iload_2
+         3: getstatic     #24                 // Field cats/effect/benchmarks/TagBenchmark$.MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+         6: invokevirtual #31                 // Method cats/effect/benchmarks/TagBenchmark$.values:()[Lcats/effect/benchmarks/FakeIO;
+         9: arraylength
+        10: if_icmpge     304
+        13: getstatic     #24                 // Field cats/effect/benchmarks/TagBenchmark$.MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+        16: invokevirtual #31                 // Method cats/effect/benchmarks/TagBenchmark$.values:()[Lcats/effect/benchmarks/FakeIO;
+        19: iload_2
+        20: aaload
+        21: invokevirtual #46                 // Method cats/effect/benchmarks/FakeIO.tag:()B
+        24: istore        4
+        26: iload         4
+        28: tableswitch   { // -1 to 24
+                      -1: 273
+                       0: 148
+                       1: 153
+                       2: 158
+                       3: 163
+                       4: 168
+                       5: 173
+                       6: 178
+                       7: 183
+                       8: 188
+                       9: 193
+                      10: 198
+                      11: 203
+                      12: 208
+                      13: 213
+                      14: 218
+                      15: 223
+                      16: 228
+                      17: 233
+                      18: 238
+                      19: 243
+                      20: 248
+                      21: 253
+                      22: 258
+                      23: 263
+                      24: 268
+                 default: 278
+            }
+       148: ldc           #48                 // String Pure
+       150: goto          292
+       153: ldc           #50                 // String Error
+       155: goto          292
+       158: ldc           #52                 // String Delay
+       160: goto          292
+       163: ldc           #54                 // String ReadTime
+       165: goto          292
+       168: ldc           #56                 // String Monotonic
+       170: goto          292
+       173: ldc           #58                 // String ReadEC
+       175: goto          292
+       178: ldc           #60                 // String Map
+       180: goto          292
+       183: ldc           #62                 // String FlatMap
+       185: goto          292
+       188: ldc           #64                 // String Attempt
+       190: goto          292
+       193: ldc           #66                 // String HandleErrorWith
+       195: goto          292
+       198: ldc           #68                 // String Canceled
+       200: goto          292
+       203: ldc           #70                 // String OnCancel
+       205: goto          292
+       208: ldc           #72                 // String Uncancelable
+       210: goto          292
+       213: ldc           #74                 // String UnmaskRunLoop
+       215: goto          292
+       218: ldc           #76                 // String IOCont
+       220: goto          292
+       223: ldc           #78                 // String Get
+       225: goto          292
+       228: ldc           #80                 // String Cede
+       230: goto          292
+       233: ldc           #82                 // String Start
+       235: goto          292
+       238: ldc           #84                 // String RacePair
+       240: goto          292
+       243: ldc           #86                 // String Sleep
+       245: goto          292
+       248: ldc           #88                 // String EvalOn
+       250: goto          292
+       253: ldc           #90                 // String Blocking
+       255: goto          292
+       258: ldc           #92                 // String Local
+       260: goto          292
+       263: ldc           #94                 // String IOTrace
+       265: goto          292
+       268: ldc           #96                 // String ReadRT
+       270: goto          292
+       273: ldc           #98                 // String EndFiber
+       275: goto          292
+       278: new           #100                // class scala/MatchError
+       281: dup
+       282: iload         4
+       284: invokestatic  #106                // Method scala/runtime/BoxesRunTime.boxToByte:(B)Ljava/lang/Byte;
+       287: invokespecial #109                // Method scala/MatchError."<init>":(Ljava/lang/Object;)V
+       290: athrow
+       291: athrow
+       292: astore_3
+       293: aload_1
+       294: aload_3
+       295: invokevirtual #114                // Method org/openjdk/jmh/infra/Blackhole.consume:(Ljava/lang/Object;)V
+       298: iinc          2, 1
+       301: goto          2
+       304: return
+      StackMapTable: number_of_entries = 31
+        frame_type = 252 /* append */
+          offset_delta = 2
+          locals = [ int ]
+        frame_type = 253 /* append */
+          offset_delta = 145
+          locals = [ top, int ]
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 255 /* full_frame */
+          offset_delta = 12
+          locals = []
+          stack = [ class java/lang/Throwable ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 0
+          locals = [ class cats/effect/benchmarks/TagBenchmark, class org/openjdk/jmh/infra/Blackhole, int, top, int ]
+          stack = [ class java/lang/String ]
+        frame_type = 249 /* chop */
+          offset_delta = 11
+      LineNumberTable:
+        line 182: 0
+        line 183: 2
+        line 184: 13
+        line 185: 26
+        line 186: 153
+        line 187: 158
+        line 188: 163
+        line 189: 168
+        line 190: 173
+        line 191: 178
+        line 192: 183
+        line 193: 188
+        line 194: 193
+        line 195: 198
+        line 196: 203
+        line 197: 208
+        line 198: 213
+        line 199: 218
+        line 200: 223
+        line 201: 228
+        line 202: 233
+        line 203: 238
+        line 204: 243
+        line 205: 248
+        line 206: 253
+        line 207: 258
+        line 208: 263
+        line 209: 268
+        line 210: 273
+        line 212: 293
+        line 213: 298
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+          293      11     3 result   Ljava/lang/String;
+            2     303     2     i   I
+            0     305     0  this   Lcats/effect/benchmarks/TagBenchmark;
+            0     305     1    bk   Lorg/openjdk/jmh/infra/Blackhole;
+    RuntimeVisibleAnnotations:
+      0: #41()
+        org.openjdk.jmh.annotations.Benchmark
+    MethodParameters:
+      Name                           Flags
+      bk                             final
+
+  public void classValue(org.openjdk.jmh.infra.Blackhole);
+    descriptor: (Lorg/openjdk/jmh/infra/Blackhole;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=5, args_size=2
+         0: iconst_0
+         1: istore_2
+         2: iload_2
+         3: getstatic     #24                 // Field cats/effect/benchmarks/TagBenchmark$.MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+         6: invokevirtual #31                 // Method cats/effect/benchmarks/TagBenchmark$.values:()[Lcats/effect/benchmarks/FakeIO;
+         9: arraylength
+        10: if_icmpge     316
+        13: getstatic     #24                 // Field cats/effect/benchmarks/TagBenchmark$.MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+        16: invokevirtual #26                 // Method cats/effect/benchmarks/TagBenchmark$.ioClassValue:()Ljava/lang/ClassValue;
+        19: getstatic     #24                 // Field cats/effect/benchmarks/TagBenchmark$.MODULE$:Lcats/effect/benchmarks/TagBenchmark$;
+        22: invokevirtual #31                 // Method cats/effect/benchmarks/TagBenchmark$.values:()[Lcats/effect/benchmarks/FakeIO;
+        25: iload_2
+        26: aaload
+        27: invokevirtual #128                // Method cats/effect/benchmarks/FakeIO.getClass:()Ljava/lang/Class;
+        30: invokevirtual #134                // Method java/lang/ClassValue.get:(Ljava/lang/Class;)Ljava/lang/Object;
+        33: invokestatic  #138                // Method scala/runtime/BoxesRunTime.unboxToByte:(Ljava/lang/Object;)B
+        36: istore        4
+        38: iload         4
+        40: tableswitch   { // -1 to 24
+                      -1: 285
+                       0: 160
+                       1: 165
+                       2: 170
+                       3: 175
+                       4: 180
+                       5: 185
+                       6: 190
+                       7: 195
+                       8: 200
+                       9: 205
+                      10: 210
+                      11: 215
+                      12: 220
+                      13: 225
+                      14: 230
+                      15: 235
+                      16: 240
+                      17: 245
+                      18: 250
+                      19: 255
+                      20: 260
+                      21: 265
+                      22: 270
+                      23: 275
+                      24: 280
+                 default: 290
+            }
+       160: ldc           #48                 // String Pure
+       162: goto          304
+       165: ldc           #50                 // String Error
+       167: goto          304
+       170: ldc           #52                 // String Delay
+       172: goto          304
+       175: ldc           #54                 // String ReadTime
+       177: goto          304
+       180: ldc           #56                 // String Monotonic
+       182: goto          304
+       185: ldc           #58                 // String ReadEC
+       187: goto          304
+       190: ldc           #60                 // String Map
+       192: goto          304
+       195: ldc           #62                 // String FlatMap
+       197: goto          304
+       200: ldc           #64                 // String Attempt
+       202: goto          304
+       205: ldc           #66                 // String HandleErrorWith
+       207: goto          304
+       210: ldc           #68                 // String Canceled
+       212: goto          304
+       215: ldc           #70                 // String OnCancel
+       217: goto          304
+       220: ldc           #72                 // String Uncancelable
+       222: goto          304
+       225: ldc           #74                 // String UnmaskRunLoop
+       227: goto          304
+       230: ldc           #76                 // String IOCont
+       232: goto          304
+       235: ldc           #78                 // String Get
+       237: goto          304
+       240: ldc           #80                 // String Cede
+       242: goto          304
+       245: ldc           #82                 // String Start
+       247: goto          304
+       250: ldc           #84                 // String RacePair
+       252: goto          304
+       255: ldc           #86                 // String Sleep
+       257: goto          304
+       260: ldc           #88                 // String EvalOn
+       262: goto          304
+       265: ldc           #90                 // String Blocking
+       267: goto          304
+       270: ldc           #92                 // String Local
+       272: goto          304
+       275: ldc           #94                 // String IOTrace
+       277: goto          304
+       280: ldc           #96                 // String ReadRT
+       282: goto          304
+       285: ldc           #98                 // String EndFiber
+       287: goto          304
+       290: new           #100                // class scala/MatchError
+       293: dup
+       294: iload         4
+       296: invokestatic  #106                // Method scala/runtime/BoxesRunTime.boxToByte:(B)Ljava/lang/Byte;
+       299: invokespecial #109                // Method scala/MatchError."<init>":(Ljava/lang/Object;)V
+       302: athrow
+       303: athrow
+       304: astore_3
+       305: aload_1
+       306: aload_3
+       307: invokevirtual #114                // Method org/openjdk/jmh/infra/Blackhole.consume:(Ljava/lang/Object;)V
+       310: iinc          2, 1
+       313: goto          2
+       316: return
+      StackMapTable: number_of_entries = 31
+        frame_type = 252 /* append */
+          offset_delta = 2
+          locals = [ int ]
+        frame_type = 253 /* append */
+          offset_delta = 157
+          locals = [ top, int ]
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 4 /* same */
+        frame_type = 255 /* full_frame */
+          offset_delta = 12
+          locals = []
+          stack = [ class java/lang/Throwable ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 0
+          locals = [ class cats/effect/benchmarks/TagBenchmark, class org/openjdk/jmh/infra/Blackhole, int, top, int ]
+          stack = [ class java/lang/String ]
+        frame_type = 249 /* chop */
+          offset_delta = 11
+      LineNumberTable:
+        line 219: 0
+        line 220: 2
+        line 222: 13
+        line 223: 19
+        line 225: 38
+        line 226: 165
+        line 227: 170
+        line 228: 175
+        line 229: 180
+        line 230: 185
+        line 231: 190
+        line 232: 195
+        line 233: 200
+        line 234: 205
+        line 235: 210
+        line 236: 215
+        line 237: 220
+        line 238: 225
+        line 239: 230
+        line 240: 235
+        line 241: 240
+        line 242: 245
+        line 243: 250
+        line 244: 255
+        line 245: 260
+        line 246: 265
+        line 247: 270
+        line 248: 275
+        line 249: 280
+        line 250: 285
+        line 252: 305
+        line 253: 310
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+          305      11     3 result   Ljava/lang/String;
+            2     315     2     i   I
+            0     317     0  this   Lcats/effect/benchmarks/TagBenchmark;
+            0     317     1    bk   Lorg/openjdk/jmh/infra/Blackhole;
+    RuntimeVisibleAnnotations:
+      0: #41()
+        org.openjdk.jmh.annotations.Benchmark
+    MethodParameters:
+      Name                           Flags
+      bk                             final
+}
+SourceFile: "TagBenchmark.scala"
+RuntimeVisibleAnnotations:
+  0: #6(#7=e#8.#9)
+    org.openjdk.jmh.annotations.OutputTimeUnit(
+      value=Ljava/util/concurrent/TimeUnit;.SECONDS
+    )
+  1: #10(#7=[e#11.#12])
+    org.openjdk.jmh.annotations.BenchmarkMode(
+      value=[Lorg/openjdk/jmh/annotations/Mode;.Throughput]
+    )
+  2: #13(#7=e#14.#15)
+    org.openjdk.jmh.annotations.State(
+      value=Lorg/openjdk/jmh/annotations/Scope;.Thread
+    )
+  TASTY: length = 0x10 (unknown attribute)
+   00 C3 AD DA 29 B6 F2 A2 00 8A 42 F8 2F DB DB 58
+
+  Scala: length = 0x0 (unknown attribute)
