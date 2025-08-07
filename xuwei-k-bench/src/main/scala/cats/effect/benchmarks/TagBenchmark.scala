@@ -142,10 +142,22 @@ object TagBenchmark {
   }
 
   val values: Array[FakeIO[?]] = Array(
+    // we want to make sure values.length != 26, so that we can easily distinguish 26 (0x1a) (the variant count) from 41 (0x29) (the length of the array)
+    // in the assembly output
     FakeIO.Pure(1),
     FakeIO.Error(new Throwable()),
     FakeIO.Delay(() => 2),
     FakeIO.RealTime,
+    FakeIO.FlatMap(FakeIO.Pure(4), (_: Int) => FakeIO.Pure(1)),
+    FakeIO.Attempt(FakeIO.Pure(5)),
+    FakeIO.HandleErrorWith(FakeIO.Pure(6), (_: Throwable) => FakeIO.Pure(1)),
+    FakeIO.Canceled,
+    FakeIO.OnCancel(FakeIO.Pure(7), FakeIO.Pure(())),
+    FakeIO.Uncancelable((_: Any) => FakeIO.Pure(8)),
+    FakeIO.UnmaskRunLoop(FakeIO.Pure(9), -1, null),
+    FakeIO.IOCont(null, null),
+    FakeIO.Get(null),
+    FakeIO.Cede,
     FakeIO.Monotonic,
     FakeIO.ReadEC,
     FakeIO.Map(FakeIO.Pure(3), (x: Int) => x + 1),
@@ -153,6 +165,11 @@ object TagBenchmark {
     FakeIO.Attempt(FakeIO.Pure(5)),
     FakeIO.HandleErrorWith(FakeIO.Pure(6), (_: Throwable) => FakeIO.Pure(1)),
     FakeIO.Canceled,
+    FakeIO.ReadEC,
+    FakeIO.Map(FakeIO.Pure(3), (x: Int) => x + 1),
+    FakeIO.FlatMap(FakeIO.Pure(4), (_: Int) => FakeIO.Pure(1)),
+    FakeIO.Attempt(FakeIO.Pure(5)),
+    FakeIO.HandleErrorWith(FakeIO.Pure(6), (_: Throwable) => FakeIO.Pure(1)),
     FakeIO.OnCancel(FakeIO.Pure(7), FakeIO.Pure(())),
     FakeIO.Uncancelable((_: Any) => FakeIO.Pure(8)),
     FakeIO.UnmaskRunLoop(FakeIO.Pure(9), -1, null),
