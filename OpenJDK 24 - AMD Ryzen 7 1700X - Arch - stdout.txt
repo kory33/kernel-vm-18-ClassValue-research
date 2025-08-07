@@ -83,8 +83,8 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]                                     │     0x00007f074ffd933b:   test   r10d,r10d
 [info]    0.18%                            │     0x00007f074ffd933e:   jne    0x00007f074ffd9691           ;*aload_1 {reexecute=0 rethrow=0 return_oop=0}
 [info]                                     │                                                               ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@33 (line 124)
-[info]                                     │     0x00007f074ffd9344:   xor    r8d,r8d
-[info]           ╭                         │     0x00007f074ffd9347:   jmp    0x00007f074ffd94be
+[info]                                     │     0x00007f074ffd9344:   xor    r8d,r8d                      ;#### i := 0; r8d will store the value of i
+[info]           ╭                         │     0x00007f074ffd9347:   jmp    0x00007f074ffd94be           ;#### When i = 0, the condition (i < TagBenchmark.values.length) is satisfied (RHS is a constant 26), so jump unconditionally
 [info]    0.85%  │                         │     0x00007f074ffd934c:   movabs r10,0x716253998              ;   {oop(&quot;Pure&quot;{0x0000000716253998})}
 [info]           │╭                        │     0x00007f074ffd9356:   jmp    0x00007f074ffd94af
 [info]    0.88%  ││                        │     0x00007f074ffd935b:   movabs r10,0x7ffe15210              ;   {oop(&quot;Error&quot;{0x00000007ffe15210})}
@@ -148,6 +148,7 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]           │                                                                                         ; - cats.effect.benchmarks.TagBenchmark::classValue@13 (line 222)
 [info]           │                                                                                         ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    0.03%  ↘                               0x00007f074ffd94be:   mov    r10d,DWORD PTR [r11+r8*4+0x10];*aaload {reexecute=0 rethrow=0 return_oop=0}
+                                                                                                           ; #### r11 has been assigned 0x7165a43b0, which is TagBenchmark.values. The 0x10 seems to be the offset at which the array data starts. 
 [info]                                                                                                     ; - cats.effect.benchmarks.TagBenchmark::classValue@26 (line 223)
 [info]                                                                                                     ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    2.02%                                  0x00007f074ffd94c3:   mov    ecx,DWORD PTR [r12+r10*8+0x8]; implicit exception: dispatches to 0x00007f074ffd983c
@@ -260,7 +261,7 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]    0.12%                             │││  0x00007f074ffd9574:   inc    r8d                          ;*iinc {reexecute=0 rethrow=0 return_oop=0}
 [info]                                      │││                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@310 (line 253)
 [info]                                      │││                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.11%                             │││  0x00007f074ffd9577:   movabs rcx,0x7f074ffd8f90           ;   {section_word}
+[info]    0.11%                             │││  0x00007f074ffd9577:   movabs rcx,0x7f074ffd8f90           ;   {section_word} #### 0x00007f074ffd94a5. 0x00007f074ffd8f90 points to a location in the constant pool
 [info]    0.75%                             │││  0x00007f074ffd9581:   jmp    QWORD PTR [rcx+r10*8+0x8]    ;*tableswitch {reexecute=0 rethrow=0 return_oop=0}
 [info]                                      │││                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@40 (line 225)
 [info]                                      │││                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
