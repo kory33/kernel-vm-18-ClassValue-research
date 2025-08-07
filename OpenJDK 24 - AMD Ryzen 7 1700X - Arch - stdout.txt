@@ -1,26 +1,10 @@
-rei@arch:~/projects/kory33/kernel-vm-18-ClassValue-research/xuwei-k-bench$ sbt
-WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
-WARNING: sun.misc.Unsafe::arrayBaseOffset has been called by net.openhft.hashing.UnsafeAccess (file:/home/rei/.sbt/boot/scala-2.12.19/org.scala-sbt/sbt/1.10.1/zero-allocation-hashing-0.16.jar)
-WARNING: Please consider reporting this to the maintainers of class net.openhft.hashing.UnsafeAccess
-WARNING: sun.misc.Unsafe::arrayBaseOffset will be removed in a future release
-WARNING: A restricted method in java.lang.System has been called
-WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/home/rei/.sbt/boot/scala-2.12.19/org.scala-sbt/sbt/1.10.1/jna-5.13.0.jar)
-WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
-WARNING: Restricted methods will be blocked in a future release unless native access is enabled
-
-[info] welcome to sbt 1.10.1 (Arch Linux Java 24.0.2)
-[info] loading settings for project xuwei-k-bench-build from plugins.sbt ...
-[info] loading project definition from /home/rei/projects/kory33/kernel-vm-18-ClassValue-research/xuwei-k-bench/project
-[info] loading settings for project root from build.sbt ...
-[info] set current project to xuwei-k-bench (in build file:/home/rei/projects/kory33/kernel-vm-18-ClassValue-research/xuwei-k-bench/)
-[info] sbt server started at local:///home/rei/.sbt/1.0/server/9359b0841cc5772b222e/sock
-[info] started sbt server
+[success] Total time: 422 s (07:02), completed Aug 8, 2025, 2:02:06 AM
+sbt:xuwei-k-bench>
+sbt:xuwei-k-bench>
 sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBenchmark -prof perfasm
->
->
 [info] running (fork) org.openjdk.jmh.Main -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBenchmark -prof perfasm
 [error] WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
-[error] WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/home/rei/projects/kory33/kernel-vm-18-ClassValue-research/xuwei-k-bench/target/bg-jobs/sbt_b0186040/target/c3bdf4c3/1296d6b9/jmh-core-1.37.jar)
+[error] WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.openjdk.jmh.util.Utils (file:/home/rei/projects/kory33/kernel-vm-18-ClassValue-research/xuwei-k-bench/target/bg-jobs/sbt_a6fbc667/target/c3bdf4c3/1296d6b9/jmh-core-1.37.jar)
 [error] WARNING: Please consider reporting this to the maintainers of class org.openjdk.jmh.util.Utils
 [error] WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
 [info] # JMH version: 1.37
@@ -38,300 +22,308 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info] # Fork: 1 of 1
 [info] # Preparing profilers: LinuxPerfAsmProfiler
 [info] # Profilers consume stdout and stderr from target VM, use -v EXTRA to copy to console
-[info] # Warmup Iteration   1: 5369148.358 ops/s
-[info] # Warmup Iteration   2: 5164473.141 ops/s
-[info] # Warmup Iteration   3: 5889640.410 ops/s
-[info] # Warmup Iteration   4: 5872088.029 ops/s
-[info] # Warmup Iteration   5: 5887858.133 ops/s
-[info] # Warmup Iteration   6: 5884256.921 ops/s
-[info] # Warmup Iteration   7: 5864121.609 ops/s
-[info] # Warmup Iteration   8: 5860695.280 ops/s
-[info] # Warmup Iteration   9: 5884171.270 ops/s
-[info] # Warmup Iteration  10: 5867590.005 ops/s
-[info] Iteration   1: 5871841.491 ops/s
-[info] Iteration   2: 5865582.100 ops/s
-[info] Iteration   3: 5881552.988 ops/s
-[info] Iteration   4: 5887481.469 ops/s
-[info] Iteration   5: 5880107.435 ops/s
-[info] Iteration   6: 5863147.755 ops/s
-[info] Iteration   7: 5859510.740 ops/s
-[info] Iteration   8: 5874638.030 ops/s
-[info] Iteration   9: 5866647.233 ops/s
-[info] Iteration  10: 5878598.433 ops/s
+[info] # Warmup Iteration   1: 3200811.217 ops/s
+[info] # Warmup Iteration   2: 2871960.807 ops/s
+[info] # Warmup Iteration   3: 3058052.353 ops/s
+[info] # Warmup Iteration   4: 3066507.375 ops/s
+[info] # Warmup Iteration   5: 3061556.268 ops/s
+[info] # Warmup Iteration   6: 3054670.008 ops/s
+[info] # Warmup Iteration   7: 3065435.296 ops/s
+[info] # Warmup Iteration   8: 3054634.191 ops/s
+[info] # Warmup Iteration   9: 3062334.710 ops/s
+[info] # Warmup Iteration  10: 3059597.083 ops/s
+[info] Iteration   1: 3057839.454 ops/s
+[info] Iteration   2: 3056889.971 ops/s
+[info] Iteration   3: 3056510.603 ops/s
+[info] Iteration   4: 3055810.330 ops/s
+[info] Iteration   5: 3059808.415 ops/s
+[info] Iteration   6: 3058068.676 ops/s
+[info] Iteration   7: 3059035.813 ops/s
+[info] Iteration   8: 3061432.750 ops/s
+[info] Iteration   9: 3057411.415 ops/s
+[info] Iteration  10: 3062478.812 ops/s
 [info] # Processing profiler results: LinuxPerfAsmProfiler
 [info] Result "cats.effect.benchmarks.TagBenchmark.classValue":
-[info]   5872910.767 ±(99.9%) 13737.489 ops/s [Average]
-[info]   (min, avg, max) = (5859510.740, 5872910.767, 5887481.469), stdev = 9086.498
-[info]   CI (99.9%): [5859173.279, 5886648.256] (assumes normal distribution)
+[info]   3058528.624 ±(99.9%) 3266.546 ops/s [Average]
+[info]   (min, avg, max) = (3055810.330, 3058528.624, 3062478.812), stdev = 2160.618
+[info]   CI (99.9%): [3055262.078, 3061795.170] (assumes normal distribution)
 [info] Secondary result "cats.effect.benchmarks.TagBenchmark.classValue:asm":
-[info] PrintAssembly processed: 272947 total address lines.
-[info] Perf output processed (skipped 104.688 seconds):
-[info]  Column 1: cycles (100162 events)
+[info] PrintAssembly processed: 275387 total address lines.
+[info] Perf output processed (skipped 105.126 seconds):
+[info]  Column 1: cycles (100196 events)
 [info] Hottest code regions (>10.00% "cycles" events):
 [info]  Event counts are percents of total event count.
 [info] ....[Hottest Region 1]..............................................................................
-[info] c2, level 4, cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub, version 5, compile id 959
-[info]                                           0x00007f074ffd9322:   jmp    0x00007f074ffd9344
-[info]                                     ↗     0x00007f074ffd9324:   movzx  r10d,BYTE PTR [r9+0x94]      ;*getfield isDone {reexecute=0 rethrow=0 return_oop=0}
-[info]                                     │                                                               ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@27 (line 123)
-[info]                                     │     0x00007f074ffd932c:   mov    rdi,QWORD PTR [r15+0x30]
-[info]                                     │     0x00007f074ffd9330:   vmovq  rbx,xmm0
-[info]                                     │     0x00007f074ffd9335:   add    rbx,0x1                      ; ImmutableOopMap {r11=Oop r9=Oop rax=Oop r13=Oop r14=Oop [96]=Oop }
-[info]                                     │                                                               ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
-[info]                                     │                                                               ; - (reexecute) cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@30 (line 123)
-[info]                                     │     0x00007f074ffd9339:   test   DWORD PTR [rdi],eax          ;   {poll}
-[info]                                     │     0x00007f074ffd933b:   test   r10d,r10d
-[info]    0.18%                            │     0x00007f074ffd933e:   jne    0x00007f074ffd9691           ;*aload_1 {reexecute=0 rethrow=0 return_oop=0}
-[info]                                     │                                                               ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@33 (line 124)
-[info]                                     │     0x00007f074ffd9344:   xor    r8d,r8d                      ;#### i := 0; r8d will store the value of i
-[info]           ╭                         │     0x00007f074ffd9347:   jmp    0x00007f074ffd94be           ;#### When i = 0, the condition (i < TagBenchmark.values.length) is satisfied (RHS is a constant 26), so jump unconditionally
-[info]    0.85%  │                         │     0x00007f074ffd934c:   movabs r10,0x716253998              ;   {oop(&quot;Pure&quot;{0x0000000716253998})}
-[info]           │╭                        │     0x00007f074ffd9356:   jmp    0x00007f074ffd94af
-[info]    0.88%  ││                        │     0x00007f074ffd935b:   movabs r10,0x7ffe15210              ;   {oop(&quot;Error&quot;{0x00000007ffe15210})}
-[info]           ││╭                       │     0x00007f074ffd9365:   jmp    0x00007f074ffd94af
-[info]    0.86%  │││                       │     0x00007f074ffd936a:   movabs r10,0x716253cf8              ;   {oop(&quot;Delay&quot;{0x0000000716253cf8})}
-[info]           │││╭                      │     0x00007f074ffd9374:   jmp    0x00007f074ffd94af
-[info]    0.91%  ││││                      │     0x00007f074ffd9379:   movabs r10,0x716253ec0              ;   {oop(&quot;ReadTime&quot;{0x0000000716253ec0})}
-[info]    0.00%  ││││╭                     │     0x00007f074ffd9383:   jmp    0x00007f074ffd94af
-[info]    0.41%  │││││                     │     0x00007f074ffd9388:   movabs r10,0x716254088              ;   {oop(&quot;Monotonic&quot;{0x0000000716254088})}
-[info]           │││││╭                    │     0x00007f074ffd9392:   jmp    0x00007f074ffd94af
-[info]    0.88%  ││││││                    │     0x00007f074ffd9397:   movabs r10,0x716254258              ;   {oop(&quot;ReadEC&quot;{0x0000000716254258})}
-[info]           ││││││╭                   │     0x00007f074ffd93a1:   jmp    0x00007f074ffd94af
-[info]    1.41%  │││││││                   │     0x00007f074ffd93a6:   movabs r10,0x716254420              ;   {oop(&quot;Map&quot;{0x0000000716254420})}
-[info]    2.61%  │││││││╭                  │     0x00007f074ffd93b0:   jmp    0x00007f074ffd94af
-[info]    0.86%  ││││││││                  │     0x00007f074ffd93b5:   movabs r10,0x7162545e8              ;   {oop(&quot;FlatMap&quot;{0x00000007162545e8})}
-[info]           ││││││││╭                 │     0x00007f074ffd93bf:   jmp    0x00007f074ffd94af
-[info]    0.88%  │││││││││                 │     0x00007f074ffd93c4:   movabs r10,0x7162547b0              ;   {oop(&quot;Attempt&quot;{0x00000007162547b0})}
-[info]           │││││││││╭                │     0x00007f074ffd93ce:   jmp    0x00007f074ffd94af
-[info]    0.30%  ││││││││││                │     0x00007f074ffd93d3:   movabs r10,0x716254978              ;   {oop(&quot;HandleErrorWith&quot;{0x0000000716254978})}
-[info]           ││││││││││╭               │     0x00007f074ffd93dd:   jmp    0x00007f074ffd94af
-[info]    0.82%  │││││││││││               │     0x00007f074ffd93e2:   movabs r10,0x716254b48              ;   {oop(&quot;Canceled&quot;{0x0000000716254b48})}
-[info]           │││││││││││╭              │     0x00007f074ffd93ec:   jmp    0x00007f074ffd94af
-[info]    0.90%  ││││││││││││              │     0x00007f074ffd93f1:   movabs r10,0x716254d10              ;   {oop(&quot;OnCancel&quot;{0x0000000716254d10})}
-[info]           ││││││││││││╭             │     0x00007f074ffd93fb:   jmp    0x00007f074ffd94af
-[info]    0.90%  │││││││││││││             │     0x00007f074ffd9400:   movabs r10,0x716254ed8              ;   {oop(&quot;Uncancelable&quot;{0x0000000716254ed8})}
-[info]           │││││││││││││╭            │     0x00007f074ffd940a:   jmp    0x00007f074ffd94af
-[info]    0.87%  ││││││││││││││            │     0x00007f074ffd940f:   movabs r10,0x7162550a8              ;   {oop(&quot;UnmaskRunLoop&quot;{0x00000007162550a8})}
-[info]           ││││││││││││││╭           │     0x00007f074ffd9419:   jmp    0x00007f074ffd94af
-[info]    0.92%  │││││││││││││││           │     0x00007f074ffd941e:   movabs r10,0x716255278              ;   {oop(&quot;IOCont&quot;{0x0000000716255278})}
-[info]    2.23%  │││││││││││││││╭          │     0x00007f074ffd9428:   jmp    0x00007f074ffd94af
-[info]    0.94%  ││││││││││││││││          │     0x00007f074ffd942d:   movabs r10,0x716255440              ;   {oop(&quot;Get&quot;{0x0000000716255440})}
-[info]           ││││││││││││││││╭         │     0x00007f074ffd9437:   jmp    0x00007f074ffd94af
-[info]    0.47%  │││││││││││││││││         │     0x00007f074ffd9439:   movabs r10,0x716255608              ;   {oop(&quot;Cede&quot;{0x0000000716255608})}
-[info]    0.00%  │││││││││││││││││╭        │     0x00007f074ffd9443:   jmp    0x00007f074ffd94af
-[info]    0.13%  ││││││││││││││││││        │     0x00007f074ffd9445:   movabs r10,0x7162557d0              ;   {oop(&quot;Start&quot;{0x00000007162557d0})}
-[info]           ││││││││││││││││││╭       │     0x00007f074ffd944f:   jmp    0x00007f074ffd94af
-[info]    0.85%  │││││││││││││││││││       │     0x00007f074ffd9451:   movabs r10,0x716255998              ;   {oop(&quot;RacePair&quot;{0x0000000716255998})}
-[info]           │││││││││││││││││││╭      │     0x00007f074ffd945b:   jmp    0x00007f074ffd94af
-[info]    0.93%  ││││││││││││││││││││      │     0x00007f074ffd945d:   movabs r10,0x716255b60              ;   {oop(&quot;Sleep&quot;{0x0000000716255b60})}
-[info]           ││││││││││││││││││││╭     │     0x00007f074ffd9467:   jmp    0x00007f074ffd94af
-[info]    0.90%  │││││││││││││││││││││     │     0x00007f074ffd9469:   movabs r10,0x716255d28              ;   {oop(&quot;EvalOn&quot;{0x0000000716255d28})}
-[info]           │││││││││││││││││││││╭    │     0x00007f074ffd9473:   jmp    0x00007f074ffd94af
-[info]    0.94%  ││││││││││││││││││││││    │     0x00007f074ffd9475:   movabs r10,0x716255ef0              ;   {oop(&quot;Blocking&quot;{0x0000000716255ef0})}
-[info]           ││││││││││││││││││││││╭   │     0x00007f074ffd947f:   jmp    0x00007f074ffd94af
-[info]    0.86%  │││││││││││││││││││││││   │     0x00007f074ffd9481:   movabs r10,0x7162560b8              ;   {oop(&quot;Local&quot;{0x00000007162560b8})}
-[info]           │││││││││││││││││││││││╭  │     0x00007f074ffd948b:   jmp    0x00007f074ffd94af
-[info]    0.29%  ││││││││││││││││││││││││  │     0x00007f074ffd948d:   movabs r10,0x716256280              ;   {oop(&quot;IOTrace&quot;{0x0000000716256280})}
-[info]           ││││││││││││││││││││││││╭ │     0x00007f074ffd9497:   jmp    0x00007f074ffd94af
-[info]    0.89%  │││││││││││││││││││││││││ │     0x00007f074ffd9499:   movabs r10,0x716256448              ;   {oop(&quot;ReadRT&quot;{0x0000000716256448})}
-[info]           │││││││││││││││││││││││││╭│     0x00007f074ffd94a3:   jmp    0x00007f074ffd94af
-[info]    0.79%  │││││││││││││││││││││││││││     0x00007f074ffd94a5:   movabs r10,0x716256610              ;*invokestatic consumeCompiler {reexecute=0 rethrow=0 return_oop=0
-[info]           │││││││││││││││││││││││││││                                                               ; - org.openjdk.jmh.infra.Blackhole::consume@7 (line 323)
-[info]           │││││││││││││││││││││││││││                                                               ; - cats.effect.benchmarks.TagBenchmark::classValue@307 (line 252)
-[info]           │││││││││││││││││││││││││││                                                               ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]           │││││││││││││││││││││││││││                                                               ;   {oop(&quot;EndFiber&quot;{0x0000000716256610})}
-[info]    0.00%  │↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘│     0x00007f074ffd94af:   cmp    r8d,0x1a
-[info]    3.25%  │                         ╰     0x00007f074ffd94b3:   jge    0x00007f074ffd9324           ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
-[info]           │                                                                                         ; - cats.effect.benchmarks.TagBenchmark::classValue@10 (line 220)
-[info]           │                                                                                         ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]           │                               0x00007f074ffd94b9:   vmovq  rbx,xmm0                     ;*getstatic MODULE$ {reexecute=0 rethrow=0 return_oop=0}
-[info]           │                                                                                         ; - cats.effect.benchmarks.TagBenchmark::classValue@13 (line 222)
-[info]           │                                                                                         ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.03%  ↘                               0x00007f074ffd94be:   mov    r10d,DWORD PTR [r11+r8*4+0x10];*aaload {reexecute=0 rethrow=0 return_oop=0}
-                                                                                                           ; #### r11 has been assigned 0x7165a43b0, which is TagBenchmark.values. The 0x10 seems to be the offset at which the array data starts. 
-[info]                                                                                                     ; - cats.effect.benchmarks.TagBenchmark::classValue@26 (line 223)
-[info]                                                                                                     ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    2.02%                                  0x00007f074ffd94c3:   mov    ecx,DWORD PTR [r12+r10*8+0x8]; implicit exception: dispatches to 0x00007f074ffd983c
-[info]    1.79%                                  0x00007f074ffd94c8:   movabs r10,0x7f06ea000000
-[info]    0.32%                                  0x00007f074ffd94d2:   add    r10,rcx
-[info]    3.54%                                  0x00007f074ffd94d5:   mov    r10,QWORD PTR [r10+0x70]
-[info]    1.76%                                  0x00007f074ffd94d9:   mov    rcx,QWORD PTR [r10]          ;*invokevirtual getClass {reexecute=0 rethrow=0 return_oop=0}
-[info]                                                                                                     ; - cats.effect.benchmarks.TagBenchmark::classValue@27 (line 223)
-[info]                                                                                                     ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    1.52%                                  0x00007f074ffd94dc:   mov    r10d,DWORD PTR [rcx+0x60]    ;*getfield classValueMap {reexecute=0 rethrow=0 return_oop=0}
-[info]                                                                                                     ; - java.lang.ClassValue::getCacheCarefully@1 (line 191)
-[info]                                                                                                     ; - java.lang.ClassValue::get@1 (line 104)
-[info]                                                                                                     ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                                                                                     ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    1.51%                                  0x00007f074ffd94e0:   test   r10d,r10d
-[info]    0.05%                             ╭    0x00007f074ffd94e3:   je     0x00007f074ffd9586           ;*ifnonnull {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │                                                              ; - java.lang.ClassValue::getCacheCarefully@6 (line 192)
-[info]                                      │                                                              ; - java.lang.ClassValue::get@1 (line 104)
-[info]                                      │                                                              ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │                                                              ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]                                      │    0x00007f074ffd94e9:   mov    r10d,DWORD PTR [r12+r10*8+0x38];*getfield cacheArray {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │                                                              ; - java.lang.ClassValue$ClassValueMap::getCache@1 (line 434)
-[info]                                      │                                                              ; - java.lang.ClassValue::getCacheCarefully@14 (line 193)
-[info]                                      │                                                              ; - java.lang.ClassValue::get@1 (line 104)
-[info]                                      │                                                              ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │                                                              ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    2.10%                             │    0x00007f074ffd94ee:   test   r10d,r10d
-[info]    0.05%                             │    0x00007f074ffd94f1:   je     0x00007f074ffd95c4           ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │                                                              ; - java.lang.ClassValue$ClassValueMap::loadFromCache@3 (line 548)
-[info]                                      │                                                              ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
-[info]                                      │                                                              ; - java.lang.ClassValue::get@7 (line 104)
-[info]                                      │                                                              ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │                                                              ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]                                      │    0x00007f074ffd94f7:   mov    rdi,r10
-[info]    0.29%                             │    0x00007f074ffd94fa:   shl    rdi,0x3                      ;*invokestatic getCacheCarefully {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │                                                              ; - java.lang.ClassValue::get@1 (line 104)
-[info]                                      │                                                              ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │                                                              ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    3.41%                             │ ↗  0x00007f074ffd94fe:   mov    esi,DWORD PTR [rdi+0xc]      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.ClassValue$ClassValueMap::loadFromCache@3 (line 548)
-[info]                                      │ │                                                            ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
-[info]                                      │ │                                                            ; - java.lang.ClassValue::get@7 (line 104)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    2.98%                             │ │  0x00007f074ffd9501:   lea    r10d,[rsi-0x1]
-[info]    0.08%                             │ │  0x00007f074ffd9505:   and    r10d,0x255992d5              ;*iand {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.ClassValue$ClassValueMap::loadFromCache@6 (line 548)
-[info]                                      │ │                                                            ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
-[info]                                      │ │                                                            ; - java.lang.ClassValue::get@7 (line 104)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.43%                             │ │  0x00007f074ffd950c:   test   esi,esi
-[info]    0.34%                             │ │  0x00007f074ffd950e:   jbe    0x00007f074ffd95d8
-[info]                                      │ │  0x00007f074ffd9514:   mov    edx,DWORD PTR [rdi+r10*4+0x10];*aaload {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.ClassValue$ClassValueMap::loadFromCache@7 (line 548)
-[info]                                      │ │                                                            ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
-[info]                                      │ │                                                            ; - java.lang.ClassValue::get@7 (line 104)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    5.77%                             │ │  0x00007f074ffd9519:   test   edx,edx
-[info]    0.07%                             │ │  0x00007f074ffd951b:   je     0x00007f074ffd9650           ;*ifnull {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.ClassValue::match@1 (line 245)
-[info]                                      │ │                                                            ; - java.lang.ClassValue::get@13 (line 107)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.23%                             │ │  0x00007f074ffd9521:   vmovq  xmm0,rbx
-[info]    0.42%                             │ │  0x00007f074ffd9526:   mov    r10d,DWORD PTR [r12+rdx*8+0xc]
-[info]   13.77%                             │ │  0x00007f074ffd952b:   mov    ebx,r10d
-[info]                                      │ │  0x00007f074ffd952e:   shl    rbx,0x3
-[info]    0.01%                             │ │  0x00007f074ffd9532:   cmp    BYTE PTR [r15+0x48],0x0
-[info]    0.00%                             │ │  0x00007f074ffd9537:   jne    0x00007f074ffd9964           ;*invokevirtual get {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.ClassValue::match@5 (line 245)
-[info]                                      │ │                                                            ; - java.lang.ClassValue::get@13 (line 107)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.00%                             │ │  0x00007f074ffd953d:   mov    ebx,DWORD PTR [rax+0x14]     ;*getfield version {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.ClassValue::match@9 (line 245)
-[info]                                      │ │                                                            ; - java.lang.ClassValue::get@13 (line 107)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.04%                             │ │  0x00007f074ffd9540:   cmp    r10d,ebx
-[info]    0.20%                             │ │  0x00007f074ffd9543:   jne    0x00007f074ffd9610           ;*if_acmpne {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.ClassValue::match@12 (line 245)
-[info]                                      │ │                                                            ; - java.lang.ClassValue::get@13 (line 107)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]                                      │ │  0x00007f074ffd9549:   mov    r10d,DWORD PTR [r12+rdx*8+0x1c];*getfield value {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.ClassValue$Entry::value@5 (line 339)
-[info]                                      │ │                                                            ; - java.lang.ClassValue::get@20 (line 111)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    1.49%                             │ │  0x00007f074ffd954e:   mov    ecx,DWORD PTR [r12+r10*8+0x8]; implicit exception: dispatches to 0x00007f074ffd9850
-[info]   16.51%                             │ │  0x00007f074ffd9553:   cmp    ecx,0x18f018                 ;   {metadata(&apos;java/lang/Byte&apos;)}
-[info]    0.08%                             │ │  0x00007f074ffd9559:   jne    0x00007f074ffd980c
-[info]                                      │ │  0x00007f074ffd955f:   shl    r10,0x3                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - scala.runtime.BoxesRunTime::unboxToByte@9 (line 91)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@33 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.00%                             │ │  0x00007f074ffd9563:   movsx  r10d,BYTE PTR [r10+0xc]      ;*getfield value {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │ │                                                            ; - java.lang.Byte::byteValue@1 (line 383)
-[info]                                      │ │                                                            ; - scala.runtime.BoxesRunTime::unboxToByte@12 (line 91)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@33 (line 223)
-[info]                                      │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    1.93%                             │ │  0x00007f074ffd9568:   lea    ebx,[r10+0x1]
-[info]    1.14%                             │ │  0x00007f074ffd956c:   cmp    ebx,0x1a
-[info]    6.03%                             │╭│  0x00007f074ffd956f:   jae    0x00007f074ffd9595           ;*tableswitch {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │││                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@40 (line 225)
-[info]                                      │││                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]                                      │││  0x00007f074ffd9571:   movsxd r10,r10d
-[info]    0.12%                             │││  0x00007f074ffd9574:   inc    r8d                          ;*iinc {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │││                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@310 (line 253)
-[info]                                      │││                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.11%                             │││  0x00007f074ffd9577:   movabs rcx,0x7f074ffd8f90           ;   {section_word} #### 0x00007f074ffd94a5. 0x00007f074ffd8f90 points to a location in the constant pool
-[info]    0.75%                             │││  0x00007f074ffd9581:   jmp    QWORD PTR [rcx+r10*8+0x8]    ;*tableswitch {reexecute=0 rethrow=0 return_oop=0}
-[info]                                      │││                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@40 (line 225)
-[info]                                      │││                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]                                      ↘││  0x00007f074ffd9586:   movabs rdi,0x716eee670              ;   {oop(a &apos;java/lang/ClassValue$Entry&apos;[1] {0x0000000716eee670})}
-[info]                                       │╰  0x00007f074ffd9590:   jmp    0x00007f074ffd94fe
-[info]                                       ↘   0x00007f074ffd9595:   mov    esi,0xffffff4d
-[info]                                           0x00007f074ffd959a:   mov    rbp,r9
-[info]                                           0x00007f074ffd959d:   mov    QWORD PTR [rsp+0x50],r14
-[info]                                           0x00007f074ffd95a2:   vmovsd QWORD PTR [rsp],xmm0
-[info]                                           0x00007f074ffd95a7:   mov    QWORD PTR [rsp+0x8],r13
-[info]                                           0x00007f074ffd95ac:   mov    DWORD PTR [rsp+0x10],r8d
+[info] c2, level 4, cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub, version 5, compile id 962
+[info]                                            0x00007f48bffd9014:   test   r10d,r10d
+[info]                                            0x00007f48bffd9017:   jne    0x00007f48bffd938c           ;*goto {reexecute=0 rethrow=0 return_oop=0}
+[info]                                                                                                      ; - cats.effect.benchmarks.TagBenchmark::classValue@313 (line 270)
+[info]                                                                                                      ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]                                            0x00007f48bffd901d:   mov    ebx,0x1
+[info]           ╭                                0x00007f48bffd9022:   jmp    0x00007f48bffd9044
+[info]           │                          ↗     0x00007f48bffd9024:   movzx  r10d,BYTE PTR [r9+0x94]      ;*getfield isDone {reexecute=0 rethrow=0 return_oop=0}
+[info]           │                          │                                                               ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@27 (line 123)
+[info]           │                          │     0x00007f48bffd902c:   mov    rdi,QWORD PTR [r15+0x30]
+[info]           │                          │     0x00007f48bffd9030:   vmovq  rbx,xmm0
+[info]    0.00%  │                          │     0x00007f48bffd9035:   add    rbx,0x1                      ; ImmutableOopMap {r11=Oop r9=Oop rax=Oop r13=Oop r14=Oop [96]=Oop }
+[info]           │                          │                                                               ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
+[info]           │                          │                                                               ; - (reexecute) cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@30 (line 123)
+[info]    0.10%  │                          │     0x00007f48bffd9039:   test   DWORD PTR [rdi],eax          ;   {poll}
+[info]           │                          │     0x00007f48bffd903b:   test   r10d,r10d
+[info]           │                          │     0x00007f48bffd903e:   jne    0x00007f48bffd9391           ;*aload_1 {reexecute=0 rethrow=0 return_oop=0}
+[info]           │                          │                                                               ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@33 (line 124)
+[info]           ↘                          │     0x00007f48bffd9044:   xor    r8d,r8d                      ;#### i := 0; r8d will store the value of i
+[info]            ╭                         │     0x00007f48bffd9047:   jmp    0x00007f48bffd91c1           ;#### When i = 0, the condition (i < TagBenchmark.values.length) is satisfied (RHS is a constant 41), so jump unconditionally
+[info]    0.65%   │                         │     0x00007f48bffd904c:   movabs r10,0x7160750c0              ;   {oop(&quot;Pure&quot;{0x00000007160750c0})}
+[info]    1.32%   │╭                        │     0x00007f48bffd9056:   jmp    0x00007f48bffd91af
+[info]    0.44%   ││                        │     0x00007f48bffd905b:   movabs r10,0x7ffe15210              ;   {oop(&quot;Error&quot;{0x00000007ffe15210})}
+[info]            ││╭                       │     0x00007f48bffd9065:   jmp    0x00007f48bffd91af
+[info]    0.48%   │││                       │     0x00007f48bffd906a:   movabs r10,0x716075420              ;   {oop(&quot;Delay&quot;{0x0000000716075420})}
+[info]            │││╭                      │     0x00007f48bffd9074:   jmp    0x00007f48bffd91af
+[info]    0.54%   ││││                      │     0x00007f48bffd9079:   movabs r10,0x7160755e8              ;   {oop(&quot;ReadTime&quot;{0x00000007160755e8})}
+[info]    1.44%   ││││╭                     │     0x00007f48bffd9083:   jmp    0x00007f48bffd91af
+[info]    0.73%   │││││                     │     0x00007f48bffd9088:   movabs r10,0x716076998              ;   {oop(&quot;Monotonic&quot;{0x0000000716076998})}
+[info]    1.32%   │││││╭                    │     0x00007f48bffd9092:   jmp    0x00007f48bffd91af
+[info]    0.71%   ││││││                    │     0x00007f48bffd9097:   movabs r10,0x716076ef8              ;   {oop(&quot;Start&quot;{0x0000000716076ef8})}
+[info]    1.40%   ││││││╭                   │     0x00007f48bffd90a1:   jmp    0x00007f48bffd91af
+[info]    0.42%   │││││││                   │     0x00007f48bffd90a6:   movabs r10,0x7160770c0              ;   {oop(&quot;RacePair&quot;{0x00000007160770c0})}
+[info]    0.00%   │││││││╭                  │     0x00007f48bffd90b0:   jmp    0x00007f48bffd91af
+[info]    0.42%   ││││││││                  │     0x00007f48bffd90b5:   movabs r10,0x716077288              ;   {oop(&quot;Sleep&quot;{0x0000000716077288})}
+[info]            ││││││││╭                 │     0x00007f48bffd90bf:   jmp    0x00007f48bffd91af
+[info]    0.33%   │││││││││                 │     0x00007f48bffd90c4:   movabs r10,0x716077450              ;   {oop(&quot;EvalOn&quot;{0x0000000716077450})}
+[info]            │││││││││╭                │     0x00007f48bffd90ce:   jmp    0x00007f48bffd91af
+[info]    0.43%   ││││││││││                │     0x00007f48bffd90d3:   movabs r10,0x716077618              ;   {oop(&quot;Blocking&quot;{0x0000000716077618})}
+[info]            ││││││││││╭               │     0x00007f48bffd90dd:   jmp    0x00007f48bffd91af
+[info]    0.43%   │││││││││││               │     0x00007f48bffd90e2:   movabs r10,0x7160777e0              ;   {oop(&quot;Local&quot;{0x00000007160777e0})}
+[info]            │││││││││││╭              │     0x00007f48bffd90ec:   jmp    0x00007f48bffd91af
+[info]    0.45%   ││││││││││││              │     0x00007f48bffd90f1:   movabs r10,0x7160779a8              ;   {oop(&quot;IOTrace&quot;{0x00000007160779a8})}
+[info]            ││││││││││││╭             │     0x00007f48bffd90fb:   jmp    0x00007f48bffd91af
+[info]    0.39%   │││││││││││││             │     0x00007f48bffd9100:   movabs r10,0x716077b70              ;   {oop(&quot;ReadRT&quot;{0x0000000716077b70})}
+[info]            │││││││││││││╭            │     0x00007f48bffd910a:   jmp    0x00007f48bffd91af
+[info]    0.50%   ││││││││││││││            │     0x00007f48bffd910f:   movabs r10,0x716077d38              ;   {oop(&quot;EndFiber&quot;{0x0000000716077d38})}
+[info]            ││││││││││││││╭           │     0x00007f48bffd9119:   jmp    0x00007f48bffd91af
+[info]    0.93%   │││││││││││││││           │     0x00007f48bffd911e:   movabs r10,0x716076b68              ;   {oop(&quot;ReadEC&quot;{0x0000000716076b68})}
+[info]    0.01%   │││││││││││││││╭          │     0x00007f48bffd9128:   jmp    0x00007f48bffd91af
+[info]    0.89%   ││││││││││││││││          │     0x00007f48bffd912d:   movabs r10,0x716076d30              ;   {oop(&quot;Map&quot;{0x0000000716076d30})}
+[info]            ││││││││││││││││╭         │     0x00007f48bffd9137:   jmp    0x00007f48bffd91af
+[info]    1.17%   │││││││││││││││││         │     0x00007f48bffd9139:   movabs r10,0x716075d10              ;   {oop(&quot;Canceled&quot;{0x0000000716075d10})}
+[info]    1.41%   │││││││││││││││││╭        │     0x00007f48bffd9143:   jmp    0x00007f48bffd91af
+[info]    1.11%   ││││││││││││││││││        │     0x00007f48bffd9145:   movabs r10,0x716075ed8              ;   {oop(&quot;OnCancel&quot;{0x0000000716075ed8})}
+[info]    1.30%   ││││││││││││││││││╭       │     0x00007f48bffd914f:   jmp    0x00007f48bffd91af
+[info]    0.84%   │││││││││││││││││││       │     0x00007f48bffd9151:   movabs r10,0x7160760a0              ;   {oop(&quot;Uncancelable&quot;{0x00000007160760a0})}
+[info]            │││││││││││││││││││╭      │     0x00007f48bffd915b:   jmp    0x00007f48bffd91af
+[info]    0.92%   ││││││││││││││││││││      │     0x00007f48bffd915d:   movabs r10,0x716076270              ;   {oop(&quot;UnmaskRunLoop&quot;{0x0000000716076270})}
+[info]            ││││││││││││││││││││╭     │     0x00007f48bffd9167:   jmp    0x00007f48bffd91af
+[info]    0.31%   │││││││││││││││││││││     │     0x00007f48bffd9169:   movabs r10,0x716076440              ;   {oop(&quot;IOCont&quot;{0x0000000716076440})}
+[info]            │││││││││││││││││││││╭    │     0x00007f48bffd9173:   jmp    0x00007f48bffd91af
+[info]    0.95%   ││││││││││││││││││││││    │     0x00007f48bffd9175:   movabs r10,0x716076608              ;   {oop(&quot;Get&quot;{0x0000000716076608})}
+[info]            ││││││││││││││││││││││╭   │     0x00007f48bffd917f:   jmp    0x00007f48bffd91af
+[info]    0.90%   │││││││││││││││││││││││   │     0x00007f48bffd9181:   movabs r10,0x7160767d0              ;   {oop(&quot;Cede&quot;{0x00000007160767d0})}
+[info]            │││││││││││││││││││││││╭  │     0x00007f48bffd918b:   jmp    0x00007f48bffd91af
+[info]    1.07%   ││││││││││││││││││││││││  │     0x00007f48bffd918d:   movabs r10,0x7160757b0              ;   {oop(&quot;FlatMap&quot;{0x00000007160757b0})}
+[info]            ││││││││││││││││││││││││╭ │     0x00007f48bffd9197:   jmp    0x00007f48bffd91af
+[info]    1.33%   │││││││││││││││││││││││││ │     0x00007f48bffd9199:   movabs r10,0x716075978              ;   {oop(&quot;Attempt&quot;{0x0000000716075978})}
+[info]            │││││││││││││││││││││││││╭│     0x00007f48bffd91a3:   jmp    0x00007f48bffd91af
+[info]    1.14%   │││││││││││││││││││││││││││     0x00007f48bffd91a5:   movabs r10,0x716075b40              ;*invokestatic consumeCompiler {reexecute=0 rethrow=0 return_oop=0}
+[info]            │││││││││││││││││││││││││││                                                               ; - org.openjdk.jmh.infra.Blackhole::consume@7 (line 323)
+[info]            │││││││││││││││││││││││││││                                                               ; - cats.effect.benchmarks.TagBenchmark::classValue@307 (line 269)
+[info]            │││││││││││││││││││││││││││                                                               ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]            │││││││││││││││││││││││││││                                                               ;   {oop(&quot;HandleErrorWith&quot;{0x0000000716075b40})}
+[info]    0.00%   │↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘│     0x00007f48bffd91af:   inc    r8d                          ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+[info]            │                         │                                                               ; - cats.effect.benchmarks.TagBenchmark::classValue@310 (line 270)
+[info]            │                         │                                                               ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    0.42%   │                         │     0x00007f48bffd91b2:   cmp    r8d,0x29
+[info]    1.06%   │                         ╰     0x00007f48bffd91b6:   jge    0x00007f48bffd9024           ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+[info]            │                                                                                         ; - cats.effect.benchmarks.TagBenchmark::classValue@10 (line 237)
+[info]            │                                                                                         ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]            │                               0x00007f48bffd91bc:   vmovq  rbx,xmm0                     ;*getstatic MODULE$ {reexecute=0 rethrow=0 return_oop=0}
+[info]            │                                                                                         ; - cats.effect.benchmarks.TagBenchmark::classValue@13 (line 239)
+[info]            │                                                                                         ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    3.87%   ↘                               0x00007f48bffd91c1:   mov    r10d,DWORD PTR [r11+r8*4+0x10];*aaload {reexecute=0 rethrow=0 return_oop=0}
+                                                                                                            ; #### r11 has been assigned 0x7163918e0, which is TagBenchmark.values. The 0x10 seems to be the offset at which the array data starts. 
+[info]                                                                                                      ; - cats.effect.benchmarks.TagBenchmark::classValue@26 (line 240)
+[info]                                                                                                      ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    2.74%                                   0x00007f48bffd91c6:   mov    ecx,DWORD PTR [r12+r10*8+0x8]; implicit exception: dispatches to 0x00007f48bffd953c
+[info]    2.71%                                   0x00007f48bffd91cb:   movabs r10,0x7f485a000000
+[info]    2.65%                                   0x00007f48bffd91d5:   add    r10,rcx
+[info]    0.33%                                   0x00007f48bffd91d8:   mov    r10,QWORD PTR [r10+0x70]
+[info]    2.73%                                   0x00007f48bffd91dc:   mov    rcx,QWORD PTR [r10]          ;*invokevirtual getClass {reexecute=0 rethrow=0 return_oop=0}
+[info]                                                                                                      ; - cats.effect.benchmarks.TagBenchmark::classValue@27 (line 240)
+[info]                                                                                                      ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    2.17%                                   0x00007f48bffd91df:   mov    r10d,DWORD PTR [rcx+0x60]    ;*getfield classValueMap {reexecute=0 rethrow=0 return_oop=0}
+[info]                                                                                                      ; - java.lang.ClassValue::getCacheCarefully@1 (line 191)
+[info]                                                                                                      ; - java.lang.ClassValue::get@1 (line 104)
+[info]                                                                                                      ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                                                                                      ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    2.09%                                   0x00007f48bffd91e3:   test   r10d,r10d
+[info]                                       ╭    0x00007f48bffd91e6:   je     0x00007f48bffd9286           ;*ifnonnull {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │                                                              ; - java.lang.ClassValue::getCacheCarefully@6 (line 192)
+[info]                                       │                                                              ; - java.lang.ClassValue::get@1 (line 104)
+[info]                                       │                                                              ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │                                                              ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]                                       │    0x00007f48bffd91ec:   mov    r10d,DWORD PTR [r12+r10*8+0x38];*getfield cacheArray {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │                                                              ; - java.lang.ClassValue$ClassValueMap::getCache@1 (line 434)
+[info]                                       │                                                              ; - java.lang.ClassValue::getCacheCarefully@14 (line 193)
+[info]                                       │                                                              ; - java.lang.ClassValue::get@1 (line 104)
+[info]                                       │                                                              ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │                                                              ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    2.75%                              │    0x00007f48bffd91f1:   test   r10d,r10d
+[info]    0.09%                              │    0x00007f48bffd91f4:   je     0x00007f48bffd92c4           ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │                                                              ; - java.lang.ClassValue$ClassValueMap::loadFromCache@3 (line 548)
+[info]                                       │                                                              ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
+[info]                                       │                                                              ; - java.lang.ClassValue::get@7 (line 104)
+[info]                                       │                                                              ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │                                                              ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]                                       │    0x00007f48bffd91fa:   mov    rdi,r10
+[info]    2.48%                              │    0x00007f48bffd91fd:   shl    rdi,0x3                      ;*invokestatic getCacheCarefully {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │                                                              ; - java.lang.ClassValue::get@1 (line 104)
+[info]                                       │                                                              ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │                                                              ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    0.34%                              │ ↗  0x00007f48bffd9201:   mov    esi,DWORD PTR [rdi+0xc]      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.ClassValue$ClassValueMap::loadFromCache@3 (line 548)
+[info]                                       │ │                                                            ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
+[info]                                       │ │                                                            ; - java.lang.ClassValue::get@7 (line 104)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    3.21%                              │ │  0x00007f48bffd9204:   lea    r10d,[rsi-0x1]
+[info]                                       │ │  0x00007f48bffd9208:   and    r10d,0x255992d5              ;*iand {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.ClassValue$ClassValueMap::loadFromCache@6 (line 548)
+[info]                                       │ │                                                            ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
+[info]                                       │ │                                                            ; - java.lang.ClassValue::get@7 (line 104)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    0.01%                              │ │  0x00007f48bffd920f:   test   esi,esi
+[info]    0.00%                              │ │  0x00007f48bffd9211:   jbe    0x00007f48bffd92d8
+[info]                                       │ │  0x00007f48bffd9217:   mov    edx,DWORD PTR [rdi+r10*4+0x10];*aaload {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.ClassValue$ClassValueMap::loadFromCache@7 (line 548)
+[info]                                       │ │                                                            ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
+[info]                                       │ │                                                            ; - java.lang.ClassValue::get@7 (line 104)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    7.34%                              │ │  0x00007f48bffd921c:   test   edx,edx
+[info]    0.09%                              │ │  0x00007f48bffd921e:   je     0x00007f48bffd9350           ;*ifnull {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.ClassValue::match@1 (line 245)
+[info]                                       │ │                                                            ; - java.lang.ClassValue::get@13 (line 107)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]                                       │ │  0x00007f48bffd9224:   vmovq  xmm0,rbx
+[info]    2.13%                              │ │  0x00007f48bffd9229:   mov    r10d,DWORD PTR [r12+rdx*8+0xc]
+[info]    9.50%                              │ │  0x00007f48bffd922e:   mov    ebx,r10d
+[info]    0.00%                              │ │  0x00007f48bffd9231:   shl    rbx,0x3
+[info]    0.00%                              │ │  0x00007f48bffd9235:   cmp    BYTE PTR [r15+0x48],0x0
+[info]                                       │ │  0x00007f48bffd923a:   jne    0x00007f48bffd9664           ;*invokevirtual get {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.ClassValue::match@5 (line 245)
+[info]                                       │ │                                                            ; - java.lang.ClassValue::get@13 (line 107)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]                                       │ │  0x00007f48bffd9240:   mov    ebx,DWORD PTR [rax+0x14]     ;*getfield version {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.ClassValue::match@9 (line 245)
+[info]                                       │ │                                                            ; - java.lang.ClassValue::get@13 (line 107)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    0.00%                              │ │  0x00007f48bffd9243:   cmp    r10d,ebx
+[info]    0.04%                              │ │  0x00007f48bffd9246:   jne    0x00007f48bffd9310           ;*if_acmpne {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.ClassValue::match@12 (line 245)
+[info]                                       │ │                                                            ; - java.lang.ClassValue::get@13 (line 107)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]                                       │ │  0x00007f48bffd924c:   mov    r10d,DWORD PTR [r12+rdx*8+0x1c];*getfield value {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.ClassValue$Entry::value@5 (line 339)
+[info]                                       │ │                                                            ; - java.lang.ClassValue::get@20 (line 111)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    2.48%                              │ │  0x00007f48bffd9251:   mov    ecx,DWORD PTR [r12+r10*8+0x8]; implicit exception: dispatches to 0x00007f48bffd9550
+[info]   12.79%                              │ │  0x00007f48bffd9256:   cmp    ecx,0x18f018                 ;   {metadata(&apos;java/lang/Byte&apos;)}
+[info]    0.07%                              │ │  0x00007f48bffd925c:   jne    0x00007f48bffd950c
+[info]    0.03%                              │ │  0x00007f48bffd9262:   shl    r10,0x3                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - scala.runtime.BoxesRunTime::unboxToByte@9 (line 91)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@33 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    0.00%                              │ │  0x00007f48bffd9266:   movsx  r10d,BYTE PTR [r10+0xc]      ;*getfield value {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │ │                                                            ; - java.lang.Byte::byteValue@1 (line 383)
+[info]                                       │ │                                                            ; - scala.runtime.BoxesRunTime::unboxToByte@12 (line 91)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@33 (line 240)
+[info]                                       │ │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]    1.99%                              │ │  0x00007f48bffd926b:   lea    ebx,[r10+0x1]
+[info]    2.52%                              │ │  0x00007f48bffd926f:   cmp    ebx,0x1a
+[info]    3.70%                              │╭│  0x00007f48bffd9272:   jae    0x00007f48bffd9295
+[info]                                       │││  0x00007f48bffd9274:   movsxd r10,r10d
+[info]    0.00%                              │││  0x00007f48bffd9277:   movabs rcx,0x7f48bffd8c90           ;   {section_word} #### 0x00007f48bffd910f. 0x00007f48bffd8c90 points to a location in the constant pool
+[info]    0.60%                              │││  0x00007f48bffd9281:   jmp    QWORD PTR [rcx+r10*8+0x8]    ;*tableswitch {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │││                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@40 (line 242)
+[info]                                       │││                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
+[info]                                       ↘││  0x00007f48bffd9286:   movabs rdi,0x716eee670              ;   {oop(a &apos;java/lang/ClassValue$Entry&apos;[1] {0x0000000716eee670})}
+[info]                                        │╰  0x00007f48bffd9290:   jmp    0x00007f48bffd9201
+[info]                                        ↘   0x00007f48bffd9295:   mov    esi,0xffffff4d
+[info]                                            0x00007f48bffd929a:   mov    rbp,r9
+[info]                                            0x00007f48bffd929d:   mov    QWORD PTR [rsp+0x50],r14
+[info]                                            0x00007f48bffd92a2:   vmovsd QWORD PTR [rsp],xmm0
+[info]                                            0x00007f48bffd92a7:   mov    QWORD PTR [rsp+0x8],r13
+[info]                                            0x00007f48bffd92ac:   mov    DWORD PTR [rsp+0x10],r8d
 [info] ....................................................................................................
-[info]   99.81%  <total for region 1>
+[info]   99.77%  <total for region 1>
 [info] ....[Hottest Regions]...............................................................................
-[info]   99.81%     c2, level 4  cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub, version 5, compile id 959
-[info]    0.02%                  <unknown>
-[info]    0.01%       libjvm.so  [unknown]
-[info]    0.01%          kernel  [unknown]
-[info]    0.01%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%                  <unknown>
-[info]    0.00%                  <unknown>
-[info]    0.00%                  <unknown>
-[info]    0.00%                  <unknown>
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.00%          kernel  [unknown]
-[info]    0.10%  <...other 92 warm regions...>
+[info]   99.77%           c2, level 4  cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub, version 5, compile id 962
+[info]    0.02%                        <unknown>
+[info]    0.01%                kernel  [unknown]
+[info]    0.01%                kernel  [unknown]
+[info]    0.01%                kernel  [unknown]
+[info]    0.01%                kernel  [unknown]
+[info]    0.01%                kernel  [unknown]
+[info]    0.01%             libjvm.so  [unknown]
+[info]    0.01%                        <unknown>
+[info]    0.00%                        <unknown>
+[info]    0.00%                kernel  [unknown]
+[info]    0.00%                        <unknown>
+[info]    0.00%                kernel  [unknown]
+[info]    0.00%                kernel  [unknown]
+[info]    0.00%        hsdis-amd64.so  hsdis_read_memory_func
+[info]    0.00%                        <unknown>
+[info]    0.00%                        <unknown>
+[info]    0.00%                kernel  [unknown]
+[info]    0.00%                kernel  [unknown]
+[info]    0.00%                kernel  [unknown]
+[info]    0.13%  <...other 114 warm regions...>
 [info] ....................................................................................................
 [info]  100.00%  <totals>
 [info] ....[Hottest Methods (after inlining)]..............................................................
-[info]   99.81%     c2, level 4  cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub, version 5, compile id 959
-[info]    0.07%          kernel  [unknown]
-[info]    0.05%                  <unknown>
-[info]    0.03%       libjvm.so  [unknown]
-[info]    0.01%       libc.so.6  [unknown]
-[info]    0.00%       libc.so.6  pthread_cond_timedwait
-[info]    0.00%  hsdis-amd64.so  print_insn
-[info]    0.00%       libc.so.6  syscall
-[info]    0.00%     interpreter  invokevirtual  182 invokevirtual
-[info]    0.00%       libc.so.6  realloc
-[info]    0.00%       libc.so.6  _IO_file_write
-[info]    0.00%     interpreter  checkcast  192 checkcast
-[info]    0.00%     interpreter  getstatic  178 getstatic
-[info]    0.00%       libc.so.6  _IO_fflush
-[info]    0.00%       libc.so.6  _IO_file_xsputn
-[info]    0.00%       libc.so.6  _IO_fwrite
-[info]    0.00%     interpreter  fast_iaccess_0  221 fast_iaccess_0
-[info]    0.00%       libc.so.6  __libc_alloca_cutoff
-[info]    0.00%  hsdis-amd64.so  hsdis_read_memory_func
-[info]    0.00%     interpreter  astore_3  78 astore_3
-[info]    0.00%  <...other 4 warm methods...>
+[info]   99.77%           c2, level 4  cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub, version 5, compile id 962
+[info]    0.07%                kernel  [unknown]
+[info]    0.06%                        <unknown>
+[info]    0.05%             libjvm.so  [unknown]
+[info]    0.01%             libc.so.6  [unknown]
+[info]    0.00%        hsdis-amd64.so  print_insn
+[info]    0.00%        hsdis-amd64.so  hsdis_read_memory_func
+[info]    0.00%           interpreter  return entry points
+[info]    0.00%           interpreter  method entry point (kind = zerolocals)
+[info]    0.00%  ld-linux-x86-64.so.2  __tls_get_addr
+[info]    0.00%                [vdso]  __vdso_clock_gettime
+[info]    0.00%             libc.so.6  pthread_cond_timedwait
+[info]    0.00%           interpreter  getstatic  178 getstatic
+[info]    0.00%             libc.so.6  write
+[info]    0.00%        hsdis-amd64.so  format_insn_close
+[info]    0.00%             libc.so.6  _IO_fflush
+[info]    0.00%           interpreter  fast_iputfield  217 fast_iputfield
+[info]    0.00%             libc.so.6  malloc
+[info]    0.00%           interpreter  nofast_getfield  234 nofast_getfield
+[info]    0.00%      Unknown, level 0  java.lang.Class::isPrimitive, version 1, compile id 72
+[info]    0.01%  <...other 13 warm methods...>
 [info] ....................................................................................................
 [info]  100.00%  <totals>
 [info] ....[Distribution by Source]........................................................................
-[info]   99.81%     c2, level 4
-[info]    0.07%          kernel
-[info]    0.05%
-[info]    0.03%       libjvm.so
-[info]    0.02%       libc.so.6
-[info]    0.01%     interpreter
-[info]    0.00%  hsdis-amd64.so
-[info]    0.00%     c1, level 3
+[info]   99.77%           c2, level 4
+[info]    0.07%                kernel
+[info]    0.06%
+[info]    0.05%             libjvm.so
+[info]    0.02%             libc.so.6
+[info]    0.01%        hsdis-amd64.so
+[info]    0.01%           interpreter
+[info]    0.00%           c1, level 3
+[info]    0.00%                [vdso]
+[info]    0.00%  ld-linux-x86-64.so.2
+[info]    0.00%   libstdc++.so.6.0.34
+[info]    0.00%      perf-1390339.map
+[info]    0.00%      Unknown, level 0
 [info] ....................................................................................................
 [info]  100.00%  <totals>
 [info] # JMH version: 1.37
@@ -345,254 +337,95 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info] # Threads: 1 thread, will synchronize iterations
 [info] # Benchmark mode: Throughput, ops/time
 [info] # Benchmark: cats.effect.benchmarks.TagBenchmark.tag
-[info] # Run progress: 50.00% complete, ETA 00:03:26
+[info] # Run progress: 50.00% complete, ETA 00:03:27
 [info] # Fork: 1 of 1
 [info] # Preparing profilers: LinuxPerfAsmProfiler
 [info] # Profilers consume stdout and stderr from target VM, use -v EXTRA to copy to console
-[info] # Warmup Iteration   1: 4675423.306 ops/s
-[info] # Warmup Iteration   2: 5740053.745 ops/s
-[info] # Warmup Iteration   3: 4505466.002 ops/s
-[info] # Warmup Iteration   4: 4511920.475 ops/s
-[info] # Warmup Iteration   5: 4511004.835 ops/s
-[info] # Warmup Iteration   6: 4514690.940 ops/s
-[info] # Warmup Iteration   7: 4504448.971 ops/s
-[info] # Warmup Iteration   8: 4514942.051 ops/s
-[info] # Warmup Iteration   9: 4509129.647 ops/s
-[info] # Warmup Iteration  10: 4501594.395 ops/s
-[info] Iteration   1: 4505098.820 ops/s
-[info] Iteration   2: 4509298.262 ops/s
-[info] Iteration   3: 4505587.838 ops/s
-[info] Iteration   4: 4505052.965 ops/s
-[info] Iteration   5: 4506950.574 ops/s
-[info] Iteration   6: 4511271.055 ops/s
-[info] Iteration   7: 4508422.092 ops/s
-[info] Iteration   8: 4515542.624 ops/s
-[info] Iteration   9: 4500680.526 ops/s
-[info] Iteration  10: 4519445.268 ops/s
+[info] # Warmup Iteration   1: 2698426.642 ops/s
+[info] # Warmup Iteration   2: 3022705.367 ops/s
+[info] # Warmup Iteration   3: 2678623.144 ops/s
+[info] # Warmup Iteration   4: 2677012.999 ops/s
+[info] # Warmup Iteration   5: 2679629.039 ops/s
+[info] # Warmup Iteration   6: 2677990.340 ops/s
+[info] # Warmup Iteration   7: 2678277.724 ops/s
+[info] # Warmup Iteration   8: 2675652.137 ops/s
+[info] # Warmup Iteration   9: 2677842.134 ops/s
+[info] # Warmup Iteration  10: 2673899.683 ops/s
+[info] Iteration   1: 2677522.497 ops/s
+[info] Iteration   2: 2678056.253 ops/s
+[info] Iteration   3: 2676885.102 ops/s
+[info] Iteration   4: 2677015.067 ops/s
+[info] Iteration   5: 2676241.584 ops/s
+[info] Iteration   6: 2677910.572 ops/s
+[info] Iteration   7: 2676853.418 ops/s
+[info] Iteration   8: 2676474.323 ops/s
+[info] Iteration   9: 2676037.450 ops/s
+[info] Iteration  10: 2675369.088 ops/s
 [info] # Processing profiler results: LinuxPerfAsmProfiler
 [info] Result "cats.effect.benchmarks.TagBenchmark.tag":
-[info]   4508735.003 ±(99.9%) 8321.213 ops/s [Average]
-[info]   (min, avg, max) = (4500680.526, 4508735.003, 4519445.268), stdev = 5503.967
-[info]   CI (99.9%): [4500413.790, 4517056.215] (assumes normal distribution)
+[info]   2676836.535 ±(99.9%) 1277.242 ops/s [Average]
+[info]   (min, avg, max) = (2675369.088, 2676836.535, 2678056.253), stdev = 844.816
+[info]   CI (99.9%): [2675559.294, 2678113.777] (assumes normal distribution)
 [info] Secondary result "cats.effect.benchmarks.TagBenchmark.tag:asm":
-[info] PrintAssembly processed: 269953 total address lines.
-[info] Perf output processed (skipped 104.560 seconds):
-[info]  Column 1: cycles (100186 events)
+[info] PrintAssembly processed: 273298 total address lines.
+[info] Perf output processed (skipped 104.779 seconds):
+[info]  Column 1: cycles (100187 events)
 [info] Hottest code regions (>10.00% "cycles" events):
 [info]  Event counts are percents of total event count.
 [info] ....[Hottest Region 1]..............................................................................
-[info] c2, level 4, cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub, version 8, compile id 970
-[info]                                          0x00007fcdc3fdd04a:   mov    r8,QWORD PTR [rsp+0x40]
-[info]                                          0x00007fcdc3fdd04f:   movzx  r10d,BYTE PTR [r8+0x94]      ; implicit exception: dispatches to 0x00007fcdc3fdd324
-[info]                                                                                                    ;*getfield isDone {reexecute=0 rethrow=0 return_oop=0}
-[info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@27 (line 123)
-[info]                                          0x00007fcdc3fdd057:   test   r10d,r10d
-[info]                                          0x00007fcdc3fdd05a:   jne    0x00007fcdc3fdd26c           ;*ifeq {reexecute=0 rethrow=0 return_oop=0}
-[info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@30 (line 123)
-[info]                                          0x00007fcdc3fdd060:   mov    ebx,0x1
-[info]           ╭                              0x00007fcdc3fdd065:   jmp    0x00007fcdc3fdd08d
-[info]           │                          ↗   0x00007fcdc3fdd067:   mov    r8,QWORD PTR [rsp+0x40]
-[info]    0.20%  │                          │   0x00007fcdc3fdd06c:   movzx  r11d,BYTE PTR [r8+0x94]      ;*goto {reexecute=0 rethrow=0 return_oop=0}
-[info]           │                          │                                                             ; - cats.effect.benchmarks.TagBenchmark::tag@301 (line 213)
-[info]           │                          │                                                             ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]    0.33%  │                          │   0x00007fcdc3fdd074:   mov    r10,QWORD PTR [r15+0x30]
-[info]           │                          │   0x00007fcdc3fdd078:   mov    rbx,QWORD PTR [rsp+0x8]
-[info]           │                          │   0x00007fcdc3fdd07d:   add    rbx,0x1                      ; ImmutableOopMap {r8=Oop [0]=Oop [72]=Oop [80]=Oop }
-[info]           │                          │                                                             ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
-[info]           │                          │                                                             ; - (reexecute) cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@30 (line 123)
-[info]           │                          │   0x00007fcdc3fdd081:   test   DWORD PTR [r10],eax          ;   {poll}
-[info]    0.12%  │                          │   0x00007fcdc3fdd084:   test   r11d,r11d
-[info]    0.02%  │                          │   0x00007fcdc3fdd087:   jne    0x00007fcdc3fdd271           ;*aload_1 {reexecute=0 rethrow=0 return_oop=0}
-[info]           │                          │                                                             ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@33 (line 124)
-[info]           ↘                          │   0x00007fcdc3fdd08d:   xor    ebp,ebp
-[info]                                      │   0x00007fcdc3fdd08f:   mov    QWORD PTR [rsp+0x40],r8
-[info]                                      │   0x00007fcdc3fdd094:   mov    QWORD PTR [rsp+0x8],rbx
-[info]            ╭                         │   0x00007fcdc3fdd099:   jmp    0x00007fcdc3fdd20a
-[info]    0.06%   │                         │   0x00007fcdc3fdd09e:   movabs r10,0x716349468              ;   {oop(&quot;Pure&quot;{0x0000000716349468})}
-[info]    0.12%   │╭                        │   0x00007fcdc3fdd0a8:   jmp    0x00007fcdc3fdd201
-[info]            ││                        │   0x00007fcdc3fdd0ad:   movabs r10,0x7ffe15210              ;   {oop(&quot;Error&quot;{0x00000007ffe15210})}
-[info]    0.13%   ││╭                       │   0x00007fcdc3fdd0b7:   jmp    0x00007fcdc3fdd201
-[info]    0.00%   │││                       │   0x00007fcdc3fdd0bc:   movabs r10,0x716349498              ;   {oop(&quot;Delay&quot;{0x0000000716349498})}
-[info]    0.13%   │││╭                      │   0x00007fcdc3fdd0c6:   jmp    0x00007fcdc3fdd201
-[info]    0.00%   ││││                      │   0x00007fcdc3fdd0cb:   movabs r10,0x7163494c8              ;   {oop(&quot;ReadTime&quot;{0x00000007163494c8})}
-[info]    0.14%   ││││╭                     │   0x00007fcdc3fdd0d5:   jmp    0x00007fcdc3fdd201
-[info]            │││││                     │   0x00007fcdc3fdd0da:   movabs r10,0x7163494f8              ;   {oop(&quot;Monotonic&quot;{0x00000007163494f8})}
-[info]    0.15%   │││││╭                    │   0x00007fcdc3fdd0e4:   jmp    0x00007fcdc3fdd201
-[info]    0.75%   ││││││                    │   0x00007fcdc3fdd0e9:   movabs r10,0x716349530              ;   {oop(&quot;ReadEC&quot;{0x0000000716349530})}
-[info]    0.04%   ││││││╭                   │   0x00007fcdc3fdd0f3:   jmp    0x00007fcdc3fdd201
-[info]    0.00%   │││││││                   │   0x00007fcdc3fdd0f8:   movabs r10,0x716349560              ;   {oop(&quot;Map&quot;{0x0000000716349560})}
-[info]    2.48%   │││││││╭                  │   0x00007fcdc3fdd102:   jmp    0x00007fcdc3fdd201
-[info]            ││││││││                  │   0x00007fcdc3fdd107:   movabs r10,0x716349590              ;   {oop(&quot;FlatMap&quot;{0x0000000716349590})}
-[info]    0.17%   ││││││││╭                 │   0x00007fcdc3fdd111:   jmp    0x00007fcdc3fdd201
-[info]            │││││││││                 │   0x00007fcdc3fdd116:   movabs r10,0x7163495c0              ;   {oop(&quot;Attempt&quot;{0x00000007163495c0})}
-[info]    1.56%   │││││││││╭                │   0x00007fcdc3fdd120:   jmp    0x00007fcdc3fdd201
-[info]    0.12%   ││││││││││                │   0x00007fcdc3fdd125:   movabs r10,0x7163495f0              ;   {oop(&quot;HandleErrorWith&quot;{0x00000007163495f0})}
-[info]    0.03%   ││││││││││╭               │   0x00007fcdc3fdd12f:   jmp    0x00007fcdc3fdd201
-[info]    0.01%   │││││││││││               │   0x00007fcdc3fdd134:   movabs r10,0x716349628              ;   {oop(&quot;Canceled&quot;{0x0000000716349628})}
-[info]    1.69%   │││││││││││╭              │   0x00007fcdc3fdd13e:   jmp    0x00007fcdc3fdd201
-[info]    0.08%   ││││││││││││              │   0x00007fcdc3fdd143:   movabs r10,0x716349658              ;   {oop(&quot;OnCancel&quot;{0x0000000716349658})}
-[info]    0.06%   ││││││││││││╭             │   0x00007fcdc3fdd14d:   jmp    0x00007fcdc3fdd201
-[info]            │││││││││││││             │   0x00007fcdc3fdd152:   movabs r10,0x716349688              ;   {oop(&quot;Uncancelable&quot;{0x0000000716349688})}
-[info]    1.52%   │││││││││││││╭            │   0x00007fcdc3fdd15c:   jmp    0x00007fcdc3fdd201
-[info]    0.01%   ││││││││││││││            │   0x00007fcdc3fdd161:   movabs r10,0x7163496c0              ;   {oop(&quot;UnmaskRunLoop&quot;{0x00000007163496c0})}
-[info]    0.12%   ││││││││││││││╭           │   0x00007fcdc3fdd16b:   jmp    0x00007fcdc3fdd201
-[info]    0.14%   │││││││││││││││           │   0x00007fcdc3fdd170:   movabs r10,0x7163496f8              ;   {oop(&quot;IOCont&quot;{0x00000007163496f8})}
-[info]    0.00%   │││││││││││││││╭          │   0x00007fcdc3fdd17a:   jmp    0x00007fcdc3fdd201
-[info]    0.75%   ││││││││││││││││          │   0x00007fcdc3fdd17f:   movabs r10,0x716349728              ;   {oop(&quot;Get&quot;{0x0000000716349728})}
-[info]    0.06%   ││││││││││││││││╭         │   0x00007fcdc3fdd189:   jmp    0x00007fcdc3fdd201
-[info]            │││││││││││││││││         │   0x00007fcdc3fdd18b:   movabs r10,0x716349758              ;   {oop(&quot;Cede&quot;{0x0000000716349758})}
-[info]    0.13%   │││││││││││││││││╭        │   0x00007fcdc3fdd195:   jmp    0x00007fcdc3fdd201
-[info]    0.00%   ││││││││││││││││││        │   0x00007fcdc3fdd197:   movabs r10,0x716349788              ;   {oop(&quot;Start&quot;{0x0000000716349788})}
-[info]    0.12%   ││││││││││││││││││╭       │   0x00007fcdc3fdd1a1:   jmp    0x00007fcdc3fdd201
-[info]            │││││││││││││││││││       │   0x00007fcdc3fdd1a3:   movabs r10,0x7163497b8              ;   {oop(&quot;RacePair&quot;{0x00000007163497b8})}
-[info]    0.13%   │││││││││││││││││││╭      │   0x00007fcdc3fdd1ad:   jmp    0x00007fcdc3fdd201
-[info]            ││││││││││││││││││││      │   0x00007fcdc3fdd1af:   movabs r10,0x7163497e8              ;   {oop(&quot;Sleep&quot;{0x00000007163497e8})}
-[info]    0.13%   ││││││││││││││││││││╭     │   0x00007fcdc3fdd1b9:   jmp    0x00007fcdc3fdd201
-[info]            │││││││││││││││││││││     │   0x00007fcdc3fdd1bb:   movabs r10,0x716349818              ;   {oop(&quot;EvalOn&quot;{0x0000000716349818})}
-[info]    0.12%   │││││││││││││││││││││╭    │   0x00007fcdc3fdd1c5:   jmp    0x00007fcdc3fdd201
-[info]    0.00%   ││││││││││││││││││││││    │   0x00007fcdc3fdd1c7:   movabs r10,0x716349848              ;   {oop(&quot;Blocking&quot;{0x0000000716349848})}
-[info]    0.11%   ││││││││││││││││││││││╭   │   0x00007fcdc3fdd1d1:   jmp    0x00007fcdc3fdd201
-[info]    0.01%   │││││││││││││││││││││││   │   0x00007fcdc3fdd1d3:   movabs r10,0x716349878              ;   {oop(&quot;Local&quot;{0x0000000716349878})}
-[info]    0.10%   │││││││││││││││││││││││╭  │   0x00007fcdc3fdd1dd:   jmp    0x00007fcdc3fdd201
-[info]    0.00%   ││││││││││││││││││││││││  │   0x00007fcdc3fdd1df:   movabs r10,0x7163498a8              ;   {oop(&quot;IOTrace&quot;{0x00000007163498a8})}
-[info]    0.11%   ││││││││││││││││││││││││╭ │   0x00007fcdc3fdd1e9:   jmp    0x00007fcdc3fdd201
-[info]            │││││││││││││││││││││││││ │   0x00007fcdc3fdd1eb:   movabs r10,0x7163498d8              ;   {oop(&quot;ReadRT&quot;{0x00000007163498d8})}
-[info]    0.09%   │││││││││││││││││││││││││╭│   0x00007fcdc3fdd1f5:   jmp    0x00007fcdc3fdd201
-[info]            │││││││││││││││││││││││││││   0x00007fcdc3fdd1f7:   movabs r10,0x716349908              ;*invokestatic consumeCompiler {reexecute=0 rethrow=0 return_oop=0}
-[info]            │││││││││││││││││││││││││││                                                             ; - org.openjdk.jmh.infra.Blackhole::consume@7 (line 323)
-[info]            │││││││││││││││││││││││││││                                                             ; - cats.effect.benchmarks.TagBenchmark::tag@295 (line 212)
-[info]            │││││││││││││││││││││││││││                                                             ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]            │││││││││││││││││││││││││││                                                             ;   {oop(&quot;EndFiber&quot;{0x0000000716349908})}
-[info]    0.16%   │↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘│   0x00007fcdc3fdd201:   cmp    ebp,0x1a
-[info]    1.26%   │                         ╰   0x00007fcdc3fdd204:   jge    0x00007fcdc3fdd067           ;*getstatic MODULE$ {reexecute=0 rethrow=0 return_oop=0}
-[info]            │                                                                                       ; - cats.effect.benchmarks.TagBenchmark::tag@13 (line 184)
-[info]            │                                                                                       ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]            ↘                             0x00007fcdc3fdd20a:   movabs r10,0x71629a610              ;   {oop(a &apos;cats/effect/benchmarks/FakeIO&apos;[26] {0x000000071629a610})}
-[info]    1.48%                                 0x00007fcdc3fdd214:   mov    r10d,DWORD PTR [r10+rbp*4+0x10]
-[info]   11.43%                                 0x00007fcdc3fdd219:   mov    rsi,r10
-[info]    0.02%                                 0x00007fcdc3fdd21c:   shl    rsi,0x3                      ;*aaload {reexecute=0 rethrow=0 return_oop=0}
-[info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::tag@20 (line 184)
-[info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]    0.00%                                 0x00007fcdc3fdd220:   nop
-[info]    0.01%                                 0x00007fcdc3fdd221:   movabs rax,0x7fcd3c04dc18
-[info]    0.61%                                 0x00007fcdc3fdd22b:   call   0x00007fcdc38ad660           ; ImmutableOopMap {[0]=Oop [64]=Oop [72]=Oop [80]=Oop }
-[info]                                                                                                    ;*invokevirtual tag {reexecute=0 rethrow=0 return_oop=0}
-[info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::tag@21 (line 184)
-[info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]                                                                                                    ;   {virtual_call}
-[info]    9.39%                                 0x00007fcdc3fdd230:   nop    DWORD PTR [rax+rax*1+0x20007a8];*invokevirtual tag {reexecute=0 rethrow=0 return_oop=0}
-[info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::tag@21 (line 184)
-[info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]                                                                                                    ;   {post_call_nop}
-[info]    0.00%                                 0x00007fcdc3fdd238:   lea    r11d,[rax+0x1]
-[info]                                          0x00007fcdc3fdd23c:   cmp    r11d,0x1a
-[info]    0.95%                              ╭  0x00007fcdc3fdd240:   jae    0x00007fcdc3fdd256           ;*tableswitch {reexecute=0 rethrow=0 return_oop=0}
-[info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::tag@28 (line 185)
-[info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]                                       │  0x00007fcdc3fdd242:   movsxd r10,eax
-[info]    0.00%                              │  0x00007fcdc3fdd245:   inc    ebp                          ;*iinc {reexecute=0 rethrow=0 return_oop=0}
-[info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::tag@298 (line 213)
-[info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]    0.00%                              │  0x00007fcdc3fdd247:   movabs r8,0x7fcdc3fdcd50            ;   {section_word}
-[info]                                       │  0x00007fcdc3fdd251:   jmp    QWORD PTR [r8+r10*8+0x8]     ;*tableswitch {reexecute=0 rethrow=0 return_oop=0}
-[info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::tag@28 (line 185)
-[info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub@17 (line 121)
-[info]                                       ↘  0x00007fcdc3fdd256:   mov    esi,0xffffff4d
-[info]                                          0x00007fcdc3fdd25b:   mov    DWORD PTR [rsp+0x1c],eax
-[info]                                          0x00007fcdc3fdd25f:   call   0x00007fcdc39726e0           ; ImmutableOopMap {[0]=Oop [64]=Oop [72]=Oop [80]=Oop }
-[info]                                                                                                    ;*tableswitch {reexecute=1 rethrow=0 return_oop=0}
-[info]                                                                                                    ; - (reexecute) cats.effect.benchmarks.TagBenchmark::tag@28 (line 185)
-[info] ....................................................................................................
-[info]   37.38%  <total for region 1>
-[info] ....[Hottest Region 2]..............................................................................
 [info] , <unknown>
-[info]           <thread_logfile thread='1357234' filename='/tmp/hs_c1357234_pid1357195.log'/>
-[info]           <task_queued compile_id='937' method='cats.effect.benchmarks.FakeIO$Sleep tag ()B' bytes='3' count='128' iicount='128' level='1' stamp='4.790' comment='tiered' hot_count='128'/>
-[info]           <task_queued compile_id='938' method='cats.effect.benchmarks.FakeIO$EvalOn tag ()B' bytes='3' count='128' iicount='128' level='1' stamp='4.790' comment='tiered' hot_count='128'/>
-[info]           <task_queued compile_id='939' method='cats.effect.benchmarks.FakeIO$Blocking tag ()B' bytes='3' count='128' iicount='128' level='1' stamp='4.790' comment='tiered' hot_count='128'/>
-[info]           <task_queued compile_id='940' method='cats.effect.benchmarks.FakeIO$Local tag ()B' bytes='3' count='128' iicount='128' level='1' stamp='4.790' comment='tiered' hot_count='128'/>
-[info]           <task_queued compile_id='941' method='cats.effect.benchmarks.FakeIO$IOTrace$ tag ()B' bytes='3' count='128' iicount='128' level='1' stamp='4.790' comment='tiered' hot_count='128'/>
-[info]           <task_queued compile_id='942' method='cats.effect.benchmarks.FakeIO$ReadRT$ tag ()B' bytes='3' count='128' iicount='128' level='1' stamp='4.790' comment='tiered' hot_count='128'/>
-[info]           <task_queued compile_id='943' method='cats.effect.benchmarks.FakeIO$EndFiber$ tag ()B' bytes='2' count='128' iicount='128' level='1' stamp='4.790' comment='tiered' hot_count='128'/>
-[info]           Decoding VtableStub vtbl[5]@0x00007fcddb715f4d [0x00007fcdc3a280f0, 0x00007fcdc3a2810b] (27 bytes)
 [info]           --------------------------------------------------------------------------------
-[info]    1.55%    0x00007fcdc3a280f0:   mov    eax,DWORD PTR [rsi+0x8]
-[info]   13.52%    0x00007fcdc3a280f3:
-[info]           <thread_logfile thread='1357235' filename='/tmp/hs_c1357235_pid1357195.log'/>
-[info]           movabs r10
-[info]           <nmethod compile_id='912' compiler='c1' level='3' entry='0x00007fcdbc53e020' size='736' address='0x00007fcdbc53df08' relocation_offset='216' insts_offset='280' stub_offset='664' scopes_data_offset='-2555629456' scopes_pcs_offset='-2555629552' dependencies_offset='-2555629560' metadata_offset='728' method='java.lang.ref.Reference clear ()V' bytes='5' count='256' iicount='256' stamp='4.791'/>
-[info]           <print_nmethod compile_id='912' compiler='c1' level='3' stamp='4.791'>
+[info]           [/Disassembly]
+[info]           </print_nmethod>
+[info]           Decoding VtableStub vtbl[5]@0x00007f5153f15f4d [0x00007f513ba27af0, 0x00007f513ba27b0b] (27 bytes)
+[info]           --------------------------------------------------------------------------------
+[info]    1.14%    0x00007f513ba27af0:
+[info]           <nmethod compile_id='931' compiler='c1' level='1' entry='0x00007f513bfd8180' size='456' address='0x00007f513bfd8088' relocation_offset='216' insts_offset='248' stub_offset='392' scopes_data_offset='-2481940480' scopes_pcs_offset='-2481940528' dependencies_offset='-2481940536' oops_offset='440' metadata_offset='448' method='cats.effect.benchmarks.FakeIO$UnmaskRunLoop tag ()B' bytes='3' count='264' iicount='264' stamp='5.115'/>
+[info]           <print_nmethod compile_id='931' compiler='c1' level='1' stamp='5.115'>
 [info]           ============================= C1-compiled nmethod ==============================
 [info]           ----------------------------------- Assembly -----------------------------------
-[info]           Compiled method (c1) 4790  912       3       java.lang.ref.Reference::clear (5 bytes)
-[info]            total in heap  [0x00007fcdbc53df08,0x00007fcdbc53e1e8] = 736
-[info]            relocation     [0x00007fcdbc53dfe0,0x00007fcdbc53e018] = 56
-[info]            main code      [0x00007fcdbc53e020,0x00007fcdbc53e1a0] = 384
-[info]            stub code      [0x00007fcdbc53e1a0,0x00007fcdbc53e1e0] = 64
+[info]           Compiled method (c1) 5114  931       1       cats.effect.benchmarks.FakeIO$UnmaskRunLoop::tag (3 bytes)
+[info]            total in heap  [0x00007f513bfd8088,0x00007f513bfd8250] = 456
+[info]            relocation     [0x00007f513bfd8160,0x00007f513bfd8180] = 32
+[info]            main code      [0x00007f513bfd8180,0x00007f513bfd8210] = 144
+[info]            stub code      [0x00007f513bfd8210,0x00007f513bfd8240] = 48
+[info]            oops           [0x00007f513bfd8240,0x00007f513bfd8248] = 8
+[info]            metadata       [0x00007f513bfd8248,0x00007f513bfd8250] = 8
 [info] ....................................................................................................
-[info]   33.33%  <total for region 2>
-[info] ....[Hottest Regions]...............................................................................
-[info]   37.38%     c2, level 4  cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub, version 8, compile id 970
-[info]   33.33%                  <unknown>
-[info]    3.84%     c1, level 1  cats.effect.benchmarks.FakeIO$Get::tag, version 1, compile id 933
-[info]    3.03%     c1, level 1  cats.effect.benchmarks.FakeIO$ReadEC$::tag, version 1, compile id 923
-[info]    1.85%     c1, level 1  cats.effect.benchmarks.FakeIO$UnmaskRunLoop::tag, version 1, compile id 931
-[info]    1.78%     c1, level 1  cats.effect.benchmarks.FakeIO$RealTime$::tag, version 1, compile id 921
-[info]    1.56%     c1, level 1  cats.effect.benchmarks.FakeIO$Blocking::tag, version 1, compile id 939
-[info]    1.48%     c1, level 1  cats.effect.benchmarks.FakeIO$IOTrace$::tag, version 1, compile id 941
-[info]    1.19%     c1, level 1  cats.effect.benchmarks.FakeIO$Uncancelable::tag, version 1, compile id 930
-[info]    1.13%     c1, level 1  cats.effect.benchmarks.FakeIO$Map::tag, version 1, compile id 924
-[info]    1.12%     c1, level 1  cats.effect.benchmarks.FakeIO$HandleErrorWith::tag, version 1, compile id 927
-[info]    1.08%     c1, level 1  cats.effect.benchmarks.FakeIO$Attempt::tag, version 1, compile id 926
-[info]    0.79%     c1, level 1  cats.effect.benchmarks.FakeIO$Cede$::tag, version 1, compile id 934
-[info]    0.77%     c1, level 1  cats.effect.benchmarks.FakeIO$Error::tag, version 1, compile id 919
-[info]    0.75%     c1, level 1  cats.effect.benchmarks.FakeIO$RacePair::tag, version 1, compile id 936
-[info]    0.73%     c1, level 1  cats.effect.benchmarks.FakeIO$OnCancel::tag, version 1, compile id 929
-[info]    0.72%     c1, level 1  cats.effect.benchmarks.FakeIO$EvalOn::tag, version 1, compile id 938
-[info]    0.72%     c1, level 1  cats.effect.benchmarks.FakeIO$Canceled$::tag, version 1, compile id 928
-[info]    0.69%     c1, level 1  cats.effect.benchmarks.FakeIO$Local::tag, version 1, compile id 940
-[info]    0.68%     c1, level 1  cats.effect.benchmarks.FakeIO$Pure::tag, version 1, compile id 918
-[info]    5.37%  <...other 141 warm regions...>
-[info] ....................................................................................................
-[info]  100.00%  <totals>
-[info] ....[Hottest Methods (after inlining)]..............................................................
-[info]   37.38%     c2, level 4  cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub, version 8, compile id 970
-[info]   33.40%                  <unknown>
-[info]    3.84%     c1, level 1  cats.effect.benchmarks.FakeIO$Get::tag, version 1, compile id 933
-[info]    3.03%     c1, level 1  cats.effect.benchmarks.FakeIO$ReadEC$::tag, version 1, compile id 923
-[info]    1.85%     c1, level 1  cats.effect.benchmarks.FakeIO$UnmaskRunLoop::tag, version 1, compile id 931
-[info]    1.78%     c1, level 1  cats.effect.benchmarks.FakeIO$RealTime$::tag, version 1, compile id 921
-[info]    1.56%     c1, level 1  cats.effect.benchmarks.FakeIO$Blocking::tag, version 1, compile id 939
-[info]    1.48%     c1, level 1  cats.effect.benchmarks.FakeIO$IOTrace$::tag, version 1, compile id 941
-[info]    1.19%     c1, level 1  cats.effect.benchmarks.FakeIO$Uncancelable::tag, version 1, compile id 930
-[info]    1.13%     c1, level 1  cats.effect.benchmarks.FakeIO$Map::tag, version 1, compile id 924
-[info]    1.12%     c1, level 1  cats.effect.benchmarks.FakeIO$HandleErrorWith::tag, version 1, compile id 927
-[info]    1.08%     c1, level 1  cats.effect.benchmarks.FakeIO$Attempt::tag, version 1, compile id 926
-[info]    0.79%     c1, level 1  cats.effect.benchmarks.FakeIO$Cede$::tag, version 1, compile id 934
-[info]    0.77%     c1, level 1  cats.effect.benchmarks.FakeIO$Error::tag, version 1, compile id 919
-[info]    0.75%     c1, level 1  cats.effect.benchmarks.FakeIO$RacePair::tag, version 1, compile id 936
-[info]    0.73%     c1, level 1  cats.effect.benchmarks.FakeIO$OnCancel::tag, version 1, compile id 929
-[info]    0.72%     c1, level 1  cats.effect.benchmarks.FakeIO$EvalOn::tag, version 1, compile id 938
-[info]    0.72%     c1, level 1  cats.effect.benchmarks.FakeIO$Canceled$::tag, version 1, compile id 928
-[info]    0.69%     c1, level 1  cats.effect.benchmarks.FakeIO$Local::tag, version 1, compile id 940
-[info]    0.68%     c1, level 1  cats.effect.benchmarks.FakeIO$Pure::tag, version 1, compile id 918
-[info]    5.30%  <...other 31 warm methods...>
-[info] ....................................................................................................
+[info]   29.94%  <total for region 1>
+[info] ....[Hottest Region 2]..............................................................................
+[info] c2, level 4, cats.effect.benchmarks.jmh_generated.TagBenchmark_tag_jmhTest::tag_thrpt_jmhStub, version 8, compile id 975
+[info]    0.11%                       0x00007f513bfddf09:   movabs r10,0x71637e400              ;   {oop(&quot;Sleep&quot;{0x000000071637e400})}
+[info]           ╭                    0x00007f513bfddf13:   jmp    0x00007f513bfde003
+[info]           │                    0x00007f513bfddf18:   movabs r10,0x71637e430              ;   {oop(&quot;EvalOn&quot;{0x000000071637e430})}
+[info]           │╭                   0x00007f513bfddf22:   jmp    0x00007f513bfde003
+[info]           ││                   0x00007f513bfddf27:   movabs r10,0x71637e460              ;   {oop(&quot;Blocking&quot;{0x000000071637e460})}
+[info]           ││╭                  0x00007f513bfddf31:   jmp    0x00007f513bfde003
+[info]           │││                  0x00007f513bfddf36:   movabs r10,0x71637e490              ;   {oop(&quot;Local&quot;{0x000000071637e490})}
+[info]           │││╭                 0x00007f513bfddf40:   jmp    0x00007f513bfde003
+[info]           ││││                 0x00007f513bfddf45:   movabs r10,0x71637e4c0              ;   {oop(&quot;IOTrace&quot;{0x000000071637e4c0})}
+[info]           ││││╭                0x00007f513bfddf4f:   jmp    0x00007f513bfde003
+[info]    0.00%  │││││                0x00007f513bfddf54:   movabs r10,0x71637e4f0              ;   {oop(&quot;ReadRT&quot;{0x000000071637e4f0})}
+[info]           │││││╭               0x00007f513bfddf5e:   jmp    0x00007f513bfde003
+[info]           ││││││               0x00007f513bfddf63:   movabs r10,0x71637e520              ;   {oop(&quot;EndFiber&quot;{0x000000071637e520})}
+[info]           ││││││╭              0x00007f513bfddf6d:   jmp    0x00007f513bfde003
+[info]    0.38%  │││││││              0x00007f513bfddf72:   movabs r10,0x71637e340              ;   {oop(&quot;ReadEC&quot;{0x000000071637e340})}
+[info]    0.00%  │││││││╭             0x00007f513bfddf7c:   jmp    0x00007f513bfde003
 [info]  100.00%  <totals>
 [info] ....[Distribution by Source]........................................................................
-[info]   37.38%     c2, level 4
-[info]   33.40%
-[info]   29.08%     c1, level 1
-[info]    0.07%          kernel
-[info]    0.03%       libjvm.so
-[info]    0.02%       libc.so.6
+[info]   38.05%     c1, level 1
+[info]   31.80%     c2, level 4
+[info]   29.99%
+[info]    0.06%          kernel
+[info]    0.05%       libjvm.so
+[info]    0.03%       libc.so.6
 [info]    0.01%  hsdis-amd64.so
 [info]    0.01%     interpreter
-[info]    0.00%          [vdso]
 [info]    0.00%     c1, level 3
+[info]    0.00%          [vdso]
 [info] ....................................................................................................
 [info]  100.00%  <totals>
-[info] # Run complete. Total time: 00:06:52
+[info] # Run complete. Total time: 00:06:53
 [info] REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
 [info] why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
 [info] experiments, perform baseline and negative tests that provide experimental control, make sure
@@ -603,10 +436,18 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info] works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
 [info] different JVMs are already problematic, the performance difference caused by different Blackhole
 [info] modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
-[info] Benchmark                     Mode  Cnt        Score       Error  Units
-[info] TagBenchmark.classValue      thrpt   10  5872910.767 ± 13737.489  ops/s
-[info] TagBenchmark.classValue:asm  thrpt               NaN                ---
-[info] TagBenchmark.tag             thrpt   10  4508735.003 ±  8321.213  ops/s
-[info] TagBenchmark.tag:asm         thrpt               NaN                ---
-[success] Total time: 414 s (06:54), completed Aug 8, 2025, 12:13:08 AM
+[info] Benchmark                     Mode  Cnt        Score      Error  Units
+[info] TagBenchmark.classValue      thrpt   10  3058528.624 ± 3266.546  ops/s
+[info] TagBenchmark.classValue:asm  thrpt               NaN               ---
+[info] TagBenchmark.tag             thrpt   10  2676836.535 ± 1277.242  ops/s
+[info] TagBenchmark.tag:asm         thrpt               NaN               ---
+[success] Total time: 414 s (06:54), completed Aug 8, 2025, 2:21:54 AM
 sbt:xuwei-k-bench>
+
+
+
+
+
+
+
+
