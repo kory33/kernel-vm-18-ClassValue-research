@@ -15,20 +15,7 @@ lazy val root = (project in file("."))
     Jmh / compile := (Jmh / compile).dependsOn(Compile / compile).value,
     Jmh / run := (Jmh / run).dependsOn(Jmh / compile).evaluated,
     Jmh / javaOptions ++= Seq(
-      // flags from https://psy-lob-saw.blogspot.com/2015/07/jmh-perfasm.html
       "-XX:+UnlockDiagnosticVMOptions",
-      "-XX:+LogCompilation",
-      "-XX:LogFile=./jmh.log",
-      "-XX:+PrintAssembly",
-      "-XX:+PrintInterpreter",
-      "-XX:+PrintNMethods",
-      "-XX:+PrintNativeNMethods",
-      "-XX:+PrintSignatureHandlers",
-      "-XX:+PrintAdapterHandlers",
-      "-XX:+PrintStubCode",
-      "-XX:+PrintCompilation",
-      "-XX:+PrintInlining",
-      "-XX:+TraceClassLoading",
-      "-XX:PrintAssemblyOptions=syntax"
+      "-XX:+PrintAssembly"
     )
   )
