@@ -80,6 +80,90 @@ object FakeIO {
   case object EndFiber extends FakeIO[Unit] { def tag: Byte = -1 }
 }
 
+sealed abstract class FakeIOWithObjectLevelTag(private val tagValue: Byte)
+object FakeIOWithObjectLevelTag {
+  final case class Pure[A](value: A) extends FakeIOWithObjectLevelTag(0)
+  final case class Error(throwable: Throwable)
+      extends FakeIOWithObjectLevelTag(1)
+  final case class Delay[A](thunk: () => A) extends FakeIOWithObjectLevelTag(2)
+  case object RealTime extends FakeIOWithObjectLevelTag(3)
+  case object Monotonic extends FakeIOWithObjectLevelTag(4)
+  case object ReadEC extends FakeIOWithObjectLevelTag(5)
+  final case class Map[A, B](fa: FakeIOWithObjectLevelTag, f: A => B)
+      extends FakeIOWithObjectLevelTag(6)
+  final case class FlatMap[A, B](
+      fa: FakeIOWithObjectLevelTag,
+      f: A => FakeIOWithObjectLevelTag
+  ) extends FakeIOWithObjectLevelTag(7)
+  final case class Attempt[A](fa: FakeIOWithObjectLevelTag)
+      extends FakeIOWithObjectLevelTag(8)
+  final case class HandleErrorWith[A](
+      fa: FakeIOWithObjectLevelTag,
+      f: Throwable => FakeIOWithObjectLevelTag
+  ) extends FakeIOWithObjectLevelTag(9)
+  case object Canceled extends FakeIOWithObjectLevelTag(10)
+  final case class OnCancel[A](
+      fa: FakeIOWithObjectLevelTag,
+      fin: FakeIOWithObjectLevelTag
+  ) extends FakeIOWithObjectLevelTag(11)
+  final case class Uncancelable[A](body: Any => FakeIOWithObjectLevelTag)
+      extends FakeIOWithObjectLevelTag(12)
+  final case class UnmaskRunLoop[A](
+      fa: FakeIOWithObjectLevelTag,
+      id: Int,
+      self: Any
+  ) extends FakeIOWithObjectLevelTag(13)
+  final case class IOCont[A, B](body: Any, cont: Any)
+      extends FakeIOWithObjectLevelTag(14)
+  final case class Get[A](state: Any) extends FakeIOWithObjectLevelTag(15)
+  case object Cede extends FakeIOWithObjectLevelTag(16)
+  final case class Start[A](fa: FakeIOWithObjectLevelTag)
+      extends FakeIOWithObjectLevelTag(17)
+  final case class RacePair[A, B](
+      fa: FakeIOWithObjectLevelTag,
+      fb: FakeIOWithObjectLevelTag
+  ) extends FakeIOWithObjectLevelTag(18)
+  final case class Sleep(duration: Long) extends FakeIOWithObjectLevelTag(19)
+  final case class EvalOn[A](fa: FakeIOWithObjectLevelTag, ec: Any)
+      extends FakeIOWithObjectLevelTag(20)
+  final case class Blocking[A](hint: Any, thunk: Any, blockingOn: Any)
+      extends FakeIOWithObjectLevelTag(21)
+  final case class Local[A](f: Any) extends FakeIOWithObjectLevelTag(22)
+  final case object IOTrace extends FakeIOWithObjectLevelTag(23)
+  final case object ReadRT extends FakeIOWithObjectLevelTag(24)
+  final case object EndFiber extends FakeIOWithObjectLevelTag(-1)
+}
+
+// from https://github.com/typelevel/cats-effect/commit/1472f3d252eb0d79c161c9f5d01dec249ce7252b
+private[effect] final class ClassByteMap {
+  import ClassByteMap.{Size, Mask}
+
+  private val keys = new Array[Class[?]](Size)
+  private val values = {
+    val a = new Array[Byte](Size)
+    Arrays.fill(a, -1: Byte)
+    a
+  }
+
+  def apply(key: Class[?]): Byte = {
+    var i = key.hashCode() & Mask
+    while (keys(i) != key) i = (i + 1) & Mask
+    values(i)
+  }
+
+  def update(key: Class[?], value: Byte): Unit = {
+    var i = key.hashCode() & Mask
+    while (values(i) != -1) i = (i + 1) & Mask
+    keys(i) = key
+    values(i) = value
+  }
+}
+
+private[effect] object ClassByteMap {
+  private final val Size = 64
+  private final val Mask = Size - 1
+}
+
 object TagBenchmark {
   val ioClassValue = new ClassValue[Byte] {
     import FakeIO._
@@ -141,6 +225,37 @@ object TagBenchmark {
       }
   }
 
+  val ioClassByteMap: ClassByteMap = {
+    val map = new ClassByteMap
+    map.update(classOf[FakeIO.Pure[?]], 0)
+    map.update(classOf[FakeIO.Error], 1)
+    map.update(classOf[FakeIO.Delay[?]], 2)
+    map.update(classOf[FakeIO.RealTime.type], 3)
+    map.update(classOf[FakeIO.Monotonic.type], 4)
+    map.update(classOf[FakeIO.ReadEC.type], 5)
+    map.update(classOf[FakeIO.Map[?, ?]], 6)
+    map.update(classOf[FakeIO.FlatMap[?, ?]], 7)
+    map.update(classOf[FakeIO.Attempt[?]], 8)
+    map.update(classOf[FakeIO.HandleErrorWith[?]], 9)
+    map.update(classOf[FakeIO.Canceled.type], 10)
+    map.update(classOf[FakeIO.OnCancel[?]], 11)
+    map.update(classOf[FakeIO.Uncancelable[?]], 12)
+    map.update(classOf[FakeIO.UnmaskRunLoop[?]], 13)
+    map.update(classOf[FakeIO.IOCont[?, ?]], 14)
+    map.update(classOf[FakeIO.Get[?]], 15)
+    map.update(classOf[FakeIO.Cede.type], 16)
+    map.update(classOf[FakeIO.Start[?]], 17)
+    map.update(classOf[FakeIO.RacePair[?, ?]], 18)
+    map.update(classOf[FakeIO.Sleep], 19)
+    map.update(classOf[FakeIO.EvalOn[?]], 20)
+    map.update(classOf[FakeIO.Blocking[?]], 21)
+    map.update(classOf[FakeIO.Local[?]], 22)
+    map.update(classOf[FakeIO.IOTrace.type], 23)
+    map.update(classOf[FakeIO.ReadRT.type], 24)
+    map.update(classOf[FakeIO.EndFiber.type], -1)
+    map
+  }
+
   val values: Array[FakeIO[?]] = Array(
     // we want to make sure values.length != 26, so that we can easily distinguish 26 (0x1a) (the variant count) from 41 (0x29) (the length of the array)
     // in the assembly output
@@ -187,6 +302,86 @@ object TagBenchmark {
     FakeIO.EndFiber
   )
 
+  val valuesWithTags: Array[FakeIOWithObjectLevelTag[?]] = Array(
+    // we want to make sure values.length != 26, so that we can easily distinguish 26 (0x1a) (the variant count) from 41 (0x29) (the length of the array)
+    // in the assembly output
+    FakeIOWithObjectLevelTag.Pure(1),
+    FakeIOWithObjectLevelTag.Error(new Throwable()),
+    FakeIOWithObjectLevelTag.Delay(() => 2),
+    FakeIOWithObjectLevelTag.RealTime,
+    FakeIOWithObjectLevelTag.FlatMap(
+      FakeIOWithObjectLevelTag.Pure(4),
+      (_: Int) => FakeIOWithObjectLevelTag.Pure(1)
+    ),
+    FakeIOWithObjectLevelTag.Attempt(FakeIOWithObjectLevelTag.Pure(5)),
+    FakeIOWithObjectLevelTag.HandleErrorWith(
+      FakeIOWithObjectLevelTag.Pure(6),
+      (_: Throwable) => FakeIOWithObjectLevelTag.Pure(1)
+    ),
+    FakeIOWithObjectLevelTag.Canceled,
+    FakeIOWithObjectLevelTag.OnCancel(
+      FakeIOWithObjectLevelTag.Pure(7),
+      FakeIOWithObjectLevelTag.Pure(())
+    ),
+    FakeIOWithObjectLevelTag.Uncancelable((_: Any) =>
+      FakeIOWithObjectLevelTag.Pure(8)
+    ),
+    FakeIOWithObjectLevelTag
+      .UnmaskRunLoop(FakeIOWithObjectLevelTag.Pure(9), -1, null),
+    FakeIOWithObjectLevelTag.IOCont(null, null),
+    FakeIOWithObjectLevelTag.Get(null),
+    FakeIOWithObjectLevelTag.Cede,
+    FakeIOWithObjectLevelTag.Monotonic,
+    FakeIOWithObjectLevelTag.ReadEC,
+    FakeIOWithObjectLevelTag
+      .Map(FakeIOWithObjectLevelTag.Pure(3), (x: Int) => x + 1),
+    FakeIOWithObjectLevelTag.FlatMap(
+      FakeIOWithObjectLevelTag.Pure(4),
+      (_: Int) => FakeIOWithObjectLevelTag.Pure(1)
+    ),
+    FakeIOWithObjectLevelTag.Attempt(FakeIOWithObjectLevelTag.Pure(5)),
+    FakeIOWithObjectLevelTag.HandleErrorWith(
+      FakeIOWithObjectLevelTag.Pure(6),
+      (_: Throwable) => FakeIOWithObjectLevelTag.Pure(1)
+    ),
+    FakeIOWithObjectLevelTag.Canceled,
+    FakeIOWithObjectLevelTag.ReadEC,
+    FakeIOWithObjectLevelTag
+      .Map(FakeIOWithObjectLevelTag.Pure(3), (x: Int) => x + 1),
+    FakeIOWithObjectLevelTag.FlatMap(
+      FakeIOWithObjectLevelTag.Pure(4),
+      (_: Int) => FakeIOWithObjectLevelTag.Pure(1)
+    ),
+    FakeIOWithObjectLevelTag.Attempt(FakeIOWithObjectLevelTag.Pure(5)),
+    FakeIOWithObjectLevelTag.HandleErrorWith(
+      FakeIOWithObjectLevelTag.Pure(6),
+      (_: Throwable) => FakeIOWithObjectLevelTag.Pure(1)
+    ),
+    FakeIOWithObjectLevelTag.OnCancel(
+      FakeIOWithObjectLevelTag.Pure(7),
+      FakeIOWithObjectLevelTag.Pure(())
+    ),
+    FakeIOWithObjectLevelTag.Uncancelable((_: Any) =>
+      FakeIOWithObjectLevelTag.Pure(8)
+    ),
+    FakeIOWithObjectLevelTag
+      .UnmaskRunLoop(FakeIOWithObjectLevelTag.Pure(9), -1, null),
+    FakeIOWithObjectLevelTag.IOCont(null, null),
+    FakeIOWithObjectLevelTag.Get(null),
+    FakeIOWithObjectLevelTag.Cede,
+    FakeIOWithObjectLevelTag.Start(FakeIOWithObjectLevelTag.Pure(10)),
+    FakeIOWithObjectLevelTag.RacePair(
+      FakeIOWithObjectLevelTag.Pure(11),
+      FakeIOWithObjectLevelTag.Pure(12)
+    ),
+    FakeIOWithObjectLevelTag.Sleep(3000L),
+    FakeIOWithObjectLevelTag.EvalOn(FakeIOWithObjectLevelTag.Pure(13), null),
+    FakeIOWithObjectLevelTag.Blocking(null, null, null),
+    FakeIOWithObjectLevelTag.Local(null),
+    FakeIOWithObjectLevelTag.IOTrace,
+    FakeIOWithObjectLevelTag.ReadRT,
+    FakeIOWithObjectLevelTag.EndFiber
+  )
 }
 
 @State(Scope.Thread)
@@ -239,6 +434,122 @@ class TagBenchmark {
         (TagBenchmark.ioClassValue.get(
           TagBenchmark.values(i).getClass
         ): @switch) match {
+          case 0  => "Pure"
+          case 1  => "Error"
+          case 2  => "Delay"
+          case 3  => "ReadTime"
+          case 4  => "Monotonic"
+          case 5  => "ReadEC"
+          case 6  => "Map"
+          case 7  => "FlatMap"
+          case 8  => "Attempt"
+          case 9  => "HandleErrorWith"
+          case 10 => "Canceled"
+          case 11 => "OnCancel"
+          case 12 => "Uncancelable"
+          case 13 => "UnmaskRunLoop"
+          case 14 => "IOCont"
+          case 15 => "Get"
+          case 16 => "Cede"
+          case 17 => "Start"
+          case 18 => "RacePair"
+          case 19 => "Sleep"
+          case 20 => "EvalOn"
+          case 21 => "Blocking"
+          case 22 => "Local"
+          case 23 => "IOTrace"
+          case 24 => "ReadRT"
+          case -1 => "EndFiber"
+        }
+      bk.consume(result)
+      i += 1
+    }
+  }
+
+  @Benchmark
+  def patmat(bk: Blackhole): Unit = {
+    var i = 0
+    while (i < TagBenchmark.values.length) {
+      val result: String =
+        TagBenchmark.values(i) match {
+          case FakeIO.Pure(_)                => "Pure"
+          case FakeIO.Error(_)               => "Error"
+          case FakeIO.Delay(_)               => "Delay"
+          case FakeIO.RealTime               => "ReadTime"
+          case FakeIO.Monotonic              => "Monotonic"
+          case FakeIO.ReadEC                 => "ReadEC"
+          case FakeIO.Map(_, _)              => "Map"
+          case FakeIO.FlatMap(_, _)          => "FlatMap"
+          case FakeIO.Attempt(_)             => "Attempt"
+          case FakeIO.HandleErrorWith(_, _)  => "HandleErrorWith"
+          case FakeIO.Canceled               => "Canceled"
+          case FakeIO.OnCancel(_, _)         => "OnCancel"
+          case FakeIO.Uncancelable(_)        => "Uncancelable"
+          case FakeIO.UnmaskRunLoop(_, _, _) => "UnmaskRunLoop"
+          case FakeIO.IOCont(_, _)           => "IOCont"
+          case FakeIO.Get(_)                 => "Get"
+          case FakeIO.Cede                   => "Cede"
+          case FakeIO.Start(_)               => "Start"
+          case FakeIO.RacePair(_, _)         => "RacePair"
+          case FakeIO.Sleep(_)               => "Sleep"
+          case FakeIO.EvalOn(_, _)           => "EvalOn"
+          case FakeIO.Blocking(_, _, _)      => "Blocking"
+          case FakeIO.Local(_)               => "Local"
+          case FakeIO.IOTrace                => "IOTrace"
+          case FakeIO.ReadRT                 => "ReadRT"
+          case FakeIO.EndFiber               => "EndFiber"
+        }
+      bk.consume(result)
+      i += 1
+    }
+  }
+
+  @Benchmark
+  def classByteMap(bk: Blackhole): Unit = {
+    var i = 0
+    while (i < TagBenchmark.values.length) {
+      val result: String =
+        (TagBenchmark.ioClassByteMap(
+          TagBenchmark.values(i).getClass
+        ): @switch) match {
+          case 0  => "Pure"
+          case 1  => "Error"
+          case 2  => "Delay"
+          case 3  => "ReadTime"
+          case 4  => "Monotonic"
+          case 5  => "ReadEC"
+          case 6  => "Map"
+          case 7  => "FlatMap"
+          case 8  => "Attempt"
+          case 9  => "HandleErrorWith"
+          case 10 => "Canceled"
+          case 11 => "OnCancel"
+          case 12 => "Uncancelable"
+          case 13 => "UnmaskRunLoop"
+          case 14 => "IOCont"
+          case 15 => "Get"
+          case 16 => "Cede"
+          case 17 => "Start"
+          case 18 => "RacePair"
+          case 19 => "Sleep"
+          case 20 => "EvalOn"
+          case 21 => "Blocking"
+          case 22 => "Local"
+          case 23 => "IOTrace"
+          case 24 => "ReadRT"
+          case -1 => "EndFiber"
+        }
+      bk.consume(result)
+      i += 1
+    }
+  }
+
+  @Benchmark
+  def explicitTag(bk: Blackhole): Unit = {
+    var i = 0
+    while (i < TagBenchmark.valuesWithTags.length) {
+      val result: String =
+        (TagBenchmark.valuesWithTags(i).tag: @switch) match {
           case 0  => "Pure"
           case 1  => "Error"
           case 2  => "Delay"
