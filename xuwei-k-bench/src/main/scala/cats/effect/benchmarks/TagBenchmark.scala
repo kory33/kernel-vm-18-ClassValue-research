@@ -80,63 +80,68 @@ object FakeIO {
   case object EndFiber extends FakeIO[Unit] { def tag: Byte = -1 }
 }
 
-sealed abstract class FakeIOWithObjectLevelTag(private val tagValue: Byte)
+sealed abstract class FakeIOWithObjectLevelTag[+A](
+    private[effect] val tagValue: Byte
+)
 object FakeIOWithObjectLevelTag {
-  final case class Pure[A](value: A) extends FakeIOWithObjectLevelTag(0)
+  final case class Pure[A](value: A) extends FakeIOWithObjectLevelTag[A](0)
   final case class Error(throwable: Throwable)
-      extends FakeIOWithObjectLevelTag(1)
-  final case class Delay[A](thunk: () => A) extends FakeIOWithObjectLevelTag(2)
-  case object RealTime extends FakeIOWithObjectLevelTag(3)
-  case object Monotonic extends FakeIOWithObjectLevelTag(4)
-  case object ReadEC extends FakeIOWithObjectLevelTag(5)
-  final case class Map[A, B](fa: FakeIOWithObjectLevelTag, f: A => B)
-      extends FakeIOWithObjectLevelTag(6)
+      extends FakeIOWithObjectLevelTag[Nothing](1)
+  final case class Delay[A](thunk: () => A)
+      extends FakeIOWithObjectLevelTag[A](2)
+  case object RealTime extends FakeIOWithObjectLevelTag[Long](3)
+  case object Monotonic extends FakeIOWithObjectLevelTag[Long](4)
+  case object ReadEC extends FakeIOWithObjectLevelTag[Any](5)
+  final case class Map[A, B](fa: FakeIOWithObjectLevelTag[A], f: A => B)
+      extends FakeIOWithObjectLevelTag[B](6)
   final case class FlatMap[A, B](
-      fa: FakeIOWithObjectLevelTag,
-      f: A => FakeIOWithObjectLevelTag
-  ) extends FakeIOWithObjectLevelTag(7)
-  final case class Attempt[A](fa: FakeIOWithObjectLevelTag)
-      extends FakeIOWithObjectLevelTag(8)
+      fa: FakeIOWithObjectLevelTag[A],
+      f: A => FakeIOWithObjectLevelTag[B]
+  ) extends FakeIOWithObjectLevelTag[B](7)
+  final case class Attempt[A](fa: FakeIOWithObjectLevelTag[A])
+      extends FakeIOWithObjectLevelTag[Either[Throwable, A]](8)
   final case class HandleErrorWith[A](
-      fa: FakeIOWithObjectLevelTag,
-      f: Throwable => FakeIOWithObjectLevelTag
-  ) extends FakeIOWithObjectLevelTag(9)
-  case object Canceled extends FakeIOWithObjectLevelTag(10)
+      fa: FakeIOWithObjectLevelTag[A],
+      f: Throwable => FakeIOWithObjectLevelTag[A]
+  ) extends FakeIOWithObjectLevelTag[A](9)
+  case object Canceled extends FakeIOWithObjectLevelTag[Unit](10)
   final case class OnCancel[A](
-      fa: FakeIOWithObjectLevelTag,
-      fin: FakeIOWithObjectLevelTag
-  ) extends FakeIOWithObjectLevelTag(11)
-  final case class Uncancelable[A](body: Any => FakeIOWithObjectLevelTag)
-      extends FakeIOWithObjectLevelTag(12)
+      fa: FakeIOWithObjectLevelTag[A],
+      fin: FakeIOWithObjectLevelTag[Unit]
+  ) extends FakeIOWithObjectLevelTag[A](11)
+  final case class Uncancelable[A](body: Any => FakeIOWithObjectLevelTag[A])
+      extends FakeIOWithObjectLevelTag[A](12)
   final case class UnmaskRunLoop[A](
-      fa: FakeIOWithObjectLevelTag,
+      fa: FakeIOWithObjectLevelTag[A],
       id: Int,
       self: Any
-  ) extends FakeIOWithObjectLevelTag(13)
+  ) extends FakeIOWithObjectLevelTag[A](13)
   final case class IOCont[A, B](body: Any, cont: Any)
-      extends FakeIOWithObjectLevelTag(14)
-  final case class Get[A](state: Any) extends FakeIOWithObjectLevelTag(15)
-  case object Cede extends FakeIOWithObjectLevelTag(16)
-  final case class Start[A](fa: FakeIOWithObjectLevelTag)
-      extends FakeIOWithObjectLevelTag(17)
+      extends FakeIOWithObjectLevelTag[B](14)
+  final case class Get[A](state: Any) extends FakeIOWithObjectLevelTag[A](15)
+  case object Cede extends FakeIOWithObjectLevelTag[Unit](16)
+  final case class Start[A](fa: FakeIOWithObjectLevelTag[A])
+      extends FakeIOWithObjectLevelTag[Any](17)
   final case class RacePair[A, B](
-      fa: FakeIOWithObjectLevelTag,
-      fb: FakeIOWithObjectLevelTag
-  ) extends FakeIOWithObjectLevelTag(18)
-  final case class Sleep(duration: Long) extends FakeIOWithObjectLevelTag(19)
-  final case class EvalOn[A](fa: FakeIOWithObjectLevelTag, ec: Any)
-      extends FakeIOWithObjectLevelTag(20)
+      fa: FakeIOWithObjectLevelTag[A],
+      fb: FakeIOWithObjectLevelTag[B]
+  ) extends FakeIOWithObjectLevelTag[Either[Any, Any]](18)
+  final case class Sleep(duration: Long)
+      extends FakeIOWithObjectLevelTag[Unit](19)
+  final case class EvalOn[A](fa: FakeIOWithObjectLevelTag[A], ec: Any)
+      extends FakeIOWithObjectLevelTag[A](20)
   final case class Blocking[A](hint: Any, thunk: Any, blockingOn: Any)
-      extends FakeIOWithObjectLevelTag(21)
-  final case class Local[A](f: Any) extends FakeIOWithObjectLevelTag(22)
-  final case object IOTrace extends FakeIOWithObjectLevelTag(23)
-  final case object ReadRT extends FakeIOWithObjectLevelTag(24)
-  final case object EndFiber extends FakeIOWithObjectLevelTag(-1)
+      extends FakeIOWithObjectLevelTag[A](21)
+  final case class Local[A](f: Any) extends FakeIOWithObjectLevelTag[A](22)
+  case object IOTrace extends FakeIOWithObjectLevelTag[Any](23)
+  case object ReadRT extends FakeIOWithObjectLevelTag[Any](24)
+  case object EndFiber extends FakeIOWithObjectLevelTag[Unit](-1)
 }
 
 // from https://github.com/typelevel/cats-effect/commit/1472f3d252eb0d79c161c9f5d01dec249ce7252b
 private[effect] final class ClassByteMap {
   import ClassByteMap.{Size, Mask}
+  import java.util.Arrays
 
   private val keys = new Array[Class[?]](Size)
   private val values = {
@@ -549,7 +554,7 @@ class TagBenchmark {
     var i = 0
     while (i < TagBenchmark.valuesWithTags.length) {
       val result: String =
-        (TagBenchmark.valuesWithTags(i).tag: @switch) match {
+        (TagBenchmark.valuesWithTags(i).tagValue: @switch) match {
           case 0  => "Pure"
           case 1  => "Error"
           case 2  => "Delay"
