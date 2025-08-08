@@ -377,9 +377,18 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]           │                          │   0x00007f8efbfdb35b:   test   DWORD PTR [r8],eax           ;   {poll}
 [info]    0.10%  │                          │   0x00007f8efbfdb35e:   test   r10d,r10d
 [info]           │                          │   0x00007f8efbfdb361:   jne    0x00007f8efbfdb6cd           ;*aload_1 {reexecute=0 rethrow=0 return_oop=0}
+                 │                          │                                                             ; #### exit the benchmark loop if JMH claims isDone
 [info]           │                          │                                                             ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@33 (line 124)
-[info]           ↘                          │   0x00007f8efbfdb367:   xor    ebp,ebp
-[info]            ╭                         │   0x00007f8efbfdb369:   jmp    0x00007f8efbfdb4dc
+                 │                          │                                                             ;
+                 │                          │                                                             ; ########=======================================================================
+                 │                          │                                                             ; ######## Beginning of the benchmark loop (inlined TagBenchmark.classValue method)
+                 │                          │                                                             ; ########
+                 │                          │                                                             ;
+[info]           ↘                          │   0x00007f8efbfdb367:   xor    ebp,ebp                      ; #### i := 0; ebp will store the value of i
+[info]            ╭                         │   0x00007f8efbfdb369:   jmp    0x00007f8efbfdb4dc           ; #### When i = 0, the condition (i < TagBenchmark.values.length) is satisfied (RHS is a constant 41), so jump unconditionally
+                  │                         │                                                             ;
+                  │                         │                                                             ; #### Match arms for the main pattern match (ioClassValue.get(TagBenchmark.values(i).getClass): @switch) match { ... }.
+                  │                         │                                                             ; #### Each arm has been referenced by the jump table at 0x00007f48bffd8c90.
 [info]    0.42%   │                         │   0x00007f8efbfdb36e:   movabs r10,0x716367b48              ;   {oop(&quot;Pure&quot;{0x0000000716367b48})}
 [info]            │╭                        │   0x00007f8efbfdb378:   jmp    0x00007f8efbfdb4d1
 [info]    0.42%   ││                        │   0x00007f8efbfdb37d:   movabs r10,0x7ffe15210              ;   {oop(&quot;Error&quot;{0x00000007ffe15210})}
@@ -435,25 +444,39 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]            │││││││││││││││││││││││││││                                                             ; - cats.effect.benchmarks.TagBenchmark::classValue@307 (line 469)
 [info]            │││││││││││││││││││││││││││                                                             ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]            │││││││││││││││││││││││││││                                                             ;   {oop(&quot;HandleErrorWith&quot;{0x00000007163685c8})}
-[info]    0.01%   │↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘│   0x00007f8efbfdb4d1:   inc    ebp                          ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+[info]    0.01%   │↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘↘│   0x00007f8efbfdb4d1:   inc    ebp                          ; #### i += 1
+                  │                         │                                                             ;*iinc {reexecute=0 rethrow=0 return_oop=0}
 [info]            │                         │                                                             ; - cats.effect.benchmarks.TagBenchmark::classValue@310 (line 470)
 [info]            │                         │                                                             ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    0.59%   │                         │   0x00007f8efbfdb4d3:   cmp    ebp,0x29
-[info]    1.03%   │                         ╰   0x00007f8efbfdb4d6:   jge    0x00007f8efbfdb34b           ;*getstatic MODULE$ {reexecute=0 rethrow=0 return_oop=0}
+[info]    1.03%   │                         ╰   0x00007f8efbfdb4d6:   jge    0x00007f8efbfdb34b           ;#### if (i >= 41) goto 0x00007f8efbfdb34b;
+                  │                                                                                       ;*getstatic MODULE$ {reexecute=0 rethrow=0 return_oop=0}
 [info]            │                                                                                       ; - cats.effect.benchmarks.TagBenchmark::classValue@13 (line 439)
 [info]            │                                                                                       ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]            ↘                             0x00007f8efbfdb4dc:   movabs r10,0x7165b3fc0              ;   {oop(a &apos;cats/effect/benchmarks/FakeIO&apos;[41] {0x00000007165b3fc0})}
 [info]    0.04%                                 0x00007f8efbfdb4e6:   mov    r8d,DWORD PTR [r10+rbp*4+0x10];*aaload {reexecute=0 rethrow=0 return_oop=0}
+                                                                                                          ; #### r10 has just been assigned 0x7165b3fc0, which is TagBenchmark.values. The 0x10 seems to be the offset at which the array data starts. 
+                                                                                                          ; #### r8d now contains a Compressed Oops of TagBenchmark.values(i) with shift amount 3 
+                                                                                                          ; ####   (See https://shipilev.net/jvm/anatomy-quarks/23-compressed-references/ for details on how Oops work)
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@26 (line 440)
 [info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    2.85%                                 0x00007f8efbfdb4eb:   mov    r8d,DWORD PTR [r12+r8*8+0x8] ; implicit exception: dispatches to 0x00007f8efbfdb89c
-[info]    2.66%                                 0x00007f8efbfdb4f0:   movabs r10,0x7f8e92000000
-[info]    2.71%                                 0x00007f8efbfdb4fa:   add    r10,r8
-[info]    0.37%                                 0x00007f8efbfdb4fd:   mov    r10,QWORD PTR [r10+0x70]
-[info]    2.65%                                 0x00007f8efbfdb501:   mov    rcx,QWORD PTR [r10]          ;*invokevirtual getClass {reexecute=0 rethrow=0 return_oop=0}
+                                                                                                          ; #### r8d now contains the content at TagBenchmark.values(i) + 0x8.
+                                                                                                          ; ####   Given that the experiment is carried out on a 64bit machine,
+                                                                                                          ; ####   this looks like the (narrow) klass pointer of TagBenchmark.values(i).
+[info]    2.66%                                 0x00007f8efbfdb4f0:   movabs r10,0x7f8e92000000           ; #### This probably is the base address of narrow klass region.
+                                                                                                          ; ####   If we want to be certain about this we should plug gdb and see the content of Universe::_narrow_klass._base
+                                                                                                          ; ####   See: https://blog.tiqwab.com/2019/07/21/openjdk-oop.html
+[info]    2.71%                                 0x00007f8efbfdb4fa:   add    r10,r8                       ; #### At this point r10 should be an uncompressed address pointing to a Klass struct pointed by the object header of TagBenchmark.values(i)
+[info]    0.37%                                 0x00007f8efbfdb4fd:   mov    r10,QWORD PTR [r10+0x70]     ; #### This looks like an access to Klass::_java_mirror, which is an `OopHandle`
+                                                                                                          ; ####   https://github.com/openjdk/jdk/blob/6705a9255d28f351950e7fbca9d05e73942a4e27/src/hotspot/share/oops/klass.hpp#L145
+[info]    2.65%                                 0x00007f8efbfdb501:   mov    rcx,QWORD PTR [r10]          ; #### rcx now contains the result (uncompressed oop to a Class object) of TagBenchmark.values(i).getClass
+                                                                                                          ;*invokevirtual getClass {reexecute=0 rethrow=0 return_oop=0}
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@27 (line 440)
 [info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    2.23%                                 0x00007f8efbfdb504:   mov    esi,DWORD PTR [rcx+0x60]     ;*getfield classValueMap {reexecute=0 rethrow=0 return_oop=0}
+[info]    2.23%                                 0x00007f8efbfdb504:   mov    esi,DWORD PTR [rcx+0x60]     ; #### esi now contains a compressed reference to TagBenchmark.values(i).getClass.classValueMap
+                                                                                                          ; ####   https://github.com/openjdk/jdk8u-ri/blob/bda97a28e0d0830b3c07b33482c4d6a99524af99/jdk/src/share/classes/java/lang/Class.java#L3568-L3571
+                                                                                                          ;*getfield classValueMap {reexecute=0 rethrow=0 return_oop=0}
 [info]                                                                                                    ; - java.lang.ClassValue::getCacheCarefully@1 (line 191)
 [info]                                                                                                    ; - java.lang.ClassValue::get@1 (line 104)
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
@@ -465,6 +488,7 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]                                          0x00007f8efbfdb50f:   mov    esi,DWORD PTR [r12+rsi*8+0x38];*getfield cacheArray {reexecute=0 rethrow=0 return_oop=0}
+                                                                                                          ; #### esi now contains a compressed reference to TagBenchmark.values(i).getClass.classValueMap.cacheArray
 [info]                                                                                                    ; - java.lang.ClassValue$ClassValueMap::getCache@1 (line 434)
 [info]                                                                                                    ; - java.lang.ClassValue::getCacheCarefully@14 (line 193)
 [info]                                                                                                    ; - java.lang.ClassValue::get@1 (line 104)
@@ -478,25 +502,29 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]                                          0x00007f8efbfdb51c:   mov    rdx,rsi
-[info]    2.66%                                 0x00007f8efbfdb51f:   shl    rdx,0x3                      ;*invokestatic getCacheCarefully {reexecute=0 rethrow=0 return_oop=0}
+[info]    2.66%                                 0x00007f8efbfdb51f:   shl    rdx,0x3                      ; #### compressed oop decoding. rdx now contains an uncompressed reference to TagBenchmark.values(i).getClass.classValueMap.cacheArray.
+                                                                                                          ;*invokestatic getCacheCarefully {reexecute=0 rethrow=0 return_oop=0}
 [info]                                                                                                    ; - java.lang.ClassValue::get@1 (line 104)
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]    0.38%                                 0x00007f8efbfdb523:   mov    esi,DWORD PTR [rdx+0xc]      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+[info]    0.38%                                 0x00007f8efbfdb523:   mov    esi,DWORD PTR [rdx+0xc]      ; #### esi now contains TagBenchmark.values(i).getClass.classValueMap.cacheArray.length
+                                                                                                          ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
 [info]                                                                                                    ; - java.lang.ClassValue$ClassValueMap::loadFromCache@3 (line 548)
 [info]                                                                                                    ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
 [info]                                                                                                    ; - java.lang.ClassValue::get@7 (line 104)
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    3.37%                                 0x00007f8efbfdb526:   lea    r10d,[rsi-0x1]
-[info]                                          0x00007f8efbfdb52a:   and    r10d,0x255992d5              ;*iand {reexecute=0 rethrow=0 return_oop=0}
+[info]                                          0x00007f8efbfdb52a:   and    r10d,0x255992d5              ; #### This is the bitand in cache[i & (cache.length - 1)] in https://github.com/openjdk/jdk8u-ri/blob/bda97a28e0d0830b3c07b33482c4d6a99524af99/jdk/src/share/classes/java/lang/ClassValue.java#L535-L545
+                                                                                                          ; ####   0x255992d5 seems to be the inlined result of `ioClassValue`'s hashCodeForCache, which gets substituted to i
+                                                                                                          ;*iand {reexecute=0 rethrow=0 return_oop=0}
 [info]                                                                                                    ; - java.lang.ClassValue$ClassValueMap::loadFromCache@6 (line 548)
 [info]                                                                                                    ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
 [info]                                                                                                    ; - java.lang.ClassValue::get@7 (line 104)
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    0.11%                                 0x00007f8efbfdb531:   test   esi,esi
-[info]    0.00%                                 0x00007f8efbfdb533:   jbe    0x00007f8efbfdb648
+[info]    0.00%                                 0x00007f8efbfdb533:   jbe    0x00007f8efbfdb648           ; #### jump if cacheArray.length == 0 (this is the only case where cache[0x255992d5 & (cache.length - 1)] is out-of-bounds)
 [info]    0.00%                                 0x00007f8efbfdb539:   mov    r10d,DWORD PTR [rdx+r10*4+0x10];*aaload {reexecute=0 rethrow=0 return_oop=0}
 [info]                                                                                                    ; - java.lang.ClassValue$ClassValueMap::loadFromCache@7 (line 548)
 [info]                                                                                                    ; - java.lang.ClassValue$ClassValueMap::probeHomeLocation@6 (line 554)
@@ -504,12 +532,18 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]                                                                                                    ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                                                                                    ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    7.53%                                 0x00007f8efbfdb53e:   test   r10d,r10d
-[info]    0.00%                              ╭  0x00007f8efbfdb541:   je     0x00007f8efbfdb5ad           ;*ifnull {reexecute=0 rethrow=0 return_oop=0}
+[info]    0.00%                              ╭  0x00007f8efbfdb541:   je     0x00007f8efbfdb5ad           ; #### classValue.castEntry is completely eliminated by C2 compiler, so
+                                             │                                                            ; ####   when this je (which triggers if cache[0x255992d5 & (cache.length - 1)] == null,
+                                             │                                                            ; ####                 a check which seems to arise from inlining `match` at https://github.com/openjdk/jdk8u-ri/blob/bda97a28e0d0830b3c07b33482c4d6a99524af99/jdk/src/share/classes/java/lang/ClassValue.java#L105)
+                                             │                                                            ; ####   does not trigger, r10d contains a (compressed) oop to cache[0x255992d5 & (cache.length - 1)]: Entry<Byte>,
+                                             │                                                            ; ####   which we shall call `byteEntry` for now.
+                                             │                                                            ;*ifnull {reexecute=0 rethrow=0 return_oop=0}
 [info]                                       │                                                            ; - java.lang.ClassValue::match@1 (line 245)
 [info]                                       │                                                            ; - java.lang.ClassValue::get@13 (line 107)
 [info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]                                       │  0x00007f8efbfdb543:   mov    r9d,DWORD PTR [r12+r10*8+0xc]
+[info]                                       │  0x00007f8efbfdb543:   mov    r9d,DWORD PTR [r12+r10*8+0xc]; #### Now r9d contains `byteEntry.referent`, since Reference.referent is at offset 0xc in `java.lang.ClassValue$Entry`
+                                             │                                                            ; #### Since `byteEntry: WeakReference<Version<T>>`, this is a `Version<Byte>`.
 [info]   10.91%                              │  0x00007f8efbfdb548:   mov    esi,r9d
 [info]    0.23%                              │  0x00007f8efbfdb54b:   shl    rsi,0x3
 [info]    0.00%                              │  0x00007f8efbfdb54f:   cmp    BYTE PTR [r15+0x48],0x0
@@ -519,18 +553,28 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    0.00%                              │  0x00007f8efbfdb55a:   movabs r8,0x716562890               ;   {oop(a &apos;cats/effect/benchmarks/TagBenchmark$$anon$1&apos;{0x0000000716562890})}
-[info]    0.01%                              │  0x00007f8efbfdb564:   mov    r8d,DWORD PTR [r8+0x14]      ;*getfield version {reexecute=0 rethrow=0 return_oop=0}
+[info]    0.01%                              │  0x00007f8efbfdb564:   mov    r8d,DWORD PTR [r8+0x14]      ; #### r8d now contains ioClassValue.version
+                                             │                                                            ; ####    r8 has just been assigned (an uncompressed address of) ioClassValue.
+                                             │                                                            ; ####    The class (TagBenchmark$$anon$1) of ioClassValue has ClassValue.version at offset 0x14, which can be checked by
+                                             │                                                            ; ####      xuwei-k-bench> assembly; java -jar ..\jol-cli-0.17-full.jar internals -cp .\target\scala-3.7.2\xuwei-k-bench-assembly-0.1.0-SNAPSHOT.jar "cats.effect.benchmarks.TagBenchmark`$`$anon`$1"
+                                             │                                                            ; ####    (although I think there's no formal guarantee that this layout be preserved across different runs)
+                                             │                                                            ;*getfield version {reexecute=0 rethrow=0 return_oop=0}
 [info]                                       │                                                            ; - java.lang.ClassValue::match@9 (line 245)
 [info]                                       │                                                            ; - java.lang.ClassValue::get@13 (line 107)
 [info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    0.01%                              │  0x00007f8efbfdb568:   cmp    r9d,r8d
-[info]    0.00%                              │  0x00007f8efbfdb56b:   jne    0x00007f8efbfdb684           ;*if_acmpne {reexecute=0 rethrow=0 return_oop=0}
+[info]    0.00%                              │  0x00007f8efbfdb56b:   jne    0x00007f8efbfdb684           ; #### Check version match so that we can fallback when hash collision happens
+                                             │                                                            ;*if_acmpne {reexecute=0 rethrow=0 return_oop=0}
 [info]                                       │                                                            ; - java.lang.ClassValue::match@12 (line 245)
 [info]                                       │                                                            ; - java.lang.ClassValue::get@13 (line 107)
 [info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
 [info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    0.00%                              │  0x00007f8efbfdb571:   mov    r8d,DWORD PTR [r12+r10*8+0x1c]
+                                             │                                                            ; ####
+                                             │                                                            ; #### At this point, the class-value (Byte) associated to TagBenchmark.values(i).getClass has been obtained.
+                                             │                                                            ; ####    Now, we only need to unbox this Byte value and then perform a tableswitch corresponding to the `@switch` `match`
+                                             │                                                            ; ####
 [info]    3.48%                              │  0x00007f8efbfdb576:   mov    rax,r8
 [info]    0.22%                              │  0x00007f8efbfdb579:   shl    rax,0x3                      ;*invokevirtual get {reexecute=0 rethrow=0 return_oop=0}
 [info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@30 (line 440)
@@ -541,17 +585,28 @@ sbt:xuwei-k-bench> Jmh / run -i 10 -wi 10 -f 1 -t 1 cats.effect.benchmarks.TagBe
 [info]                                       │                                                            ; - scala.runtime.BoxesRunTime::unboxToByte@9 (line 91)
 [info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@33 (line 440)
 [info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
-[info]                                       │  0x00007f8efbfdb58c:   movsx  r8d,BYTE PTR [rax+0xc]       ;*getfield value {reexecute=0 rethrow=0 return_oop=0}
+[info]                                       │  0x00007f8efbfdb58c:   movsx  r8d,BYTE PTR [rax+0xc]       ; #### r8d now contains the (unboxed) class-value associated to TagBenchmark.values(i).getClass.
+                                             │                                                            ;*getfield value {reexecute=0 rethrow=0 return_oop=0}
 [info]                                       │                                                            ; - java.lang.Byte::byteValue@1 (line 383)
 [info]                                       │                                                            ; - scala.runtime.BoxesRunTime::unboxToByte@12 (line 91)
 [info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@33 (line 440)
 [info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]    1.11%                              │  0x00007f8efbfdb591:   lea    r10d,[r8+0x1]
 [info]    0.13%                              │  0x00007f8efbfdb595:   cmp    r10d,0x1a
-[info]    6.81%                              │  0x00007f8efbfdb599:   jae    0x00007f8efbfdb605
+[info]    6.81%                              │  0x00007f8efbfdb599:   jae    0x00007f8efbfdb605           ; #### bounds check: if r8+0x1 >= 26, go throw MatchError (0x00007f8efbfdb605)
+                                             │                                                            ; ####               r8 is the value returned by ioClassValue.get(...), so
+                                             │                                                            ; ####               this checks that -1 <= r8 == ioClassValue.get(...) <= 24
 [info]                                       │  0x00007f8efbfdb59b:   movsxd r8,r8d
 [info]    0.17%                              │  0x00007f8efbfdb59e:   movabs r10,0x7f8efbfdafb0           ;   {section_word}
+                                             │                                                            ;     #### 0x00007f8efbfdafb0 contains the address (0x00007f8efbfdb431) for match-arm of EndFiber (corresponding classValue == -1)
+                                             │                                                            ;     #### 0x00007f8efbfdafb8   ...          ...   (0x00007f8efbfdb36e)       ...     of Pure     (corresponding classValue == 0 )
+                                             │                                                            ;     #### 0x00007f8efbfdafc0   ...          ...   (0x00007f8efbfdb37d)       ...     of Error    (corresponding classValue == 1 )
+                                             │                                                            ;     ####
+                                             │                                                            ;     ####                                                ...
+                                             │                                                            ;     ####
+                                             │                                                            ;     #### 0x00007f8efbfdb078   ...          ...   (0x00007f8efbfdb422)       ...     of ReadRT   (corresponding classValue == 24)
 [info]    0.02%                              │  0x00007f8efbfdb5a8:   jmp    QWORD PTR [r10+r8*8+0x8]     ;*tableswitch {reexecute=0 rethrow=0 return_oop=0}
+                                             │                                                            ;     #### Since the match scrutinee has range -1..=24, we offset by +0x8*1 from the "base" address 0x00007f8efbfdafb0 of the jump table
 [info]                                       │                                                            ; - cats.effect.benchmarks.TagBenchmark::classValue@40 (line 442)
 [info]                                       │                                                            ; - cats.effect.benchmarks.jmh_generated.TagBenchmark_classValue_jmhTest::classValue_thrpt_jmhStub@17 (line 121)
 [info]                                       ↘  0x00007f8efbfdb5ad:   mov    QWORD PTR [rsp+0x8],rbx
