@@ -5,3 +5,6 @@
 .claude
 
 /**/target
+
+# download from https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.17/jol-cli-0.17-full.jar
+jol-cli-0.17-full.jar
