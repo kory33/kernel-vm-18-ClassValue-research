@@ -17,6 +17,6 @@ lazy val root = (project in file("."))
     Jmh / javaOptions ++= Seq(
       "-XX:+UnlockDiagnosticVMOptions",
       "-XX:PrintAssemblyOptions=intel",
-      "-Xlog:gc+heap+coops"
+      "-Xlog:gc+heap+coops=trace"
     )
   )
